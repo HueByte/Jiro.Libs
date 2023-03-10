@@ -96,11 +96,8 @@ namespace Jiro.Commands.Base
 
             cmd.Start();
 
-            var stdErr = cmd.StandardError;
-            var stdOut = cmd.StandardOutput;
-
-            var stdOutTask = stdOut.ReadToEndAsync();
-            var errTask = stdErr.ReadToEndAsync();
+            var stdOutTask = cmd.StandardOutput.ReadToEndAsync();
+            var errTask = cmd.StandardError.ReadToEndAsync();
 
             await cmd.StandardInput.WriteLineAsync(navigateCommand);
             await cmd.StandardInput.WriteLineAsync(buildCommand);
