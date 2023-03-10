@@ -35,11 +35,11 @@ public class PluginMain : IPlugin
 
 - `public string PluginName { get; } = "PluginMain";` - This property returns the name of the plugin.
 
-`public void RegisterAppConfigs(ConfigurationManager builder)` - This method is optional and allows the plugin to register configuration files. In this case, an example example.config.json file is registered as a JSON file that can be reloaded on changes.
+- `public void RegisterAppConfigs(ConfigurationManager builder)` - This method is optional and allows the plugin to register configuration files. In this case, an example example.config.json file is registered as a JSON file that can be reloaded on changes.
 
-`public void RegisterAppExtensions(IApplicationBuilder app)` - This method is optional and allows the plugin to register additional middleware for the application. Here, the `UsePluginMiddleware` method is registered as an extension method for an `IApplicationBuilder` instance.
+- `public void RegisterAppExtensions(IApplicationBuilder app)` - This method is optional and allows the plugin to register additional middleware for the application. Here, the `UsePluginMiddleware` method is registered as an extension method for an `IApplicationBuilder` instance.
 
-`public void RegisterServices(IServiceCollection services)` - This method is used to register services that the plugin provides or requires. In this case, an instance of `PluginService` class is registered as a service that can be injected using the `AddScoped` extension method for `IServiceCollection`.
+- `public void RegisterServices(IServiceCollection services)` - This method is used to register services that the plugin provides or requires. In this case, an instance of `PluginService` class is registered as a service that can be injected using the `AddScoped` extension method for `IServiceCollection`.
 
 ### Custom Controllers
 To create a custom controller, you have to create your own class that will inherit `BaseController` class
