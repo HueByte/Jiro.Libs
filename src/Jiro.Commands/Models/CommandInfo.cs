@@ -1,6 +1,6 @@
-using Jiro.Core.Base.Models;
 using Jiro.Commands.Exceptions;
 using Jiro.Commands.Results;
+using Jiro.Core.Base.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Jiro.Commands.Models;
@@ -28,7 +28,7 @@ public class CommandInfo
         CommandDescription = commandDescription;
     }
 
-    public async Task<CommandResponse> ExecuteAsync(IServiceScope scope, CommandsContext commandModule, string[] tokens)
+    public async Task<CommandResponse> ExecuteAsync(IServiceProvider scopedServiceProvider, CommandsContext commandModule, string[] tokens)
     {
         CommandResponse commandResult = new()
         {
@@ -37,7 +37,7 @@ public class CommandInfo
             Result = null
         };
 
-        var instance = scope.ServiceProvider.GetRequiredService(Module);
+        var instance = scopedServiceProvider.GetRequiredService(Module);
         object?[] args = ParseArgs(commandModule, tokens);
 
         if (instance is null)
