@@ -5,4 +5,7 @@ namespace Jiro.Commands;
 
 [JsonDerivedType(typeof(GraphResult))]
 [JsonDerivedType(typeof(TextResult))]
-public interface ICommandResult { }
+public interface ICommandResult
+{
+    string? Message { get; set; }
+}

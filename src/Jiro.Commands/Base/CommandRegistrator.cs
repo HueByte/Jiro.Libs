@@ -9,13 +9,10 @@ public static class CommandRegistrator
 {
     public static IServiceCollection RegisterCommands(this IServiceCollection services, string defaultCommand)
     {
-        var assemblies = ReflectionUtilities.GetDomainAssemblies();
-        if (assemblies is null) throw new Exception("Assemblies is null, something went wrong");
+        var assemblies = ReflectionUtilities.GetDomainAssemblies() ?? throw new Exception("Assemblies is null, something went wrong");
 
         // types that contain CommandContainer attribute
-        var commandModules = ReflectionUtilities.GetCommandModules(assemblies);
-        if (commandModules is null) throw new Exception("Command modules is null, something went wrong");
-
+        var commandModules = ReflectionUtilities.GetCommandModules(assemblies) ?? throw new Exception("Command modules is null, something went wrong");
         List<CommandModuleInfo> commandModulesInfos = new();
 
         foreach (var container in commandModules)

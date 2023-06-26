@@ -1,6 +1,5 @@
 using Jiro.Commands.Exceptions;
 using Jiro.Commands.Results;
-using Jiro.Core.Base.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Jiro.Commands.Models;
@@ -41,7 +40,12 @@ public class CommandInfo
         object?[] args = ParseArgs(commandModule, tokens);
 
         if (instance is null)
-            throw new CommandException(Name, "Command instance is null");
+        {
+            commandResult.IsSuccess = false;
+            commandResult.Result = TextResult.Create($"Couldn't create instance of {Name} command");
+
+            return commandResult;
+        }
 
         if (IsAsync)
         {
@@ -87,8 +91,8 @@ public class CommandInfo
             for (int i = 0; i < Parameters.Count; i++)
             {
                 var param = paramTokens.Length > i ? paramTokens[i] : null;
-                if (Parameters[i].Parser is not null)
-                    args[i] = Parameters[i].Parser.Parse(param);
+                if (Parameters[i]?.Parser is not null)
+                    args[i] = Parameters[i]?.Parser?.Parse(param);
             }
         }
         else

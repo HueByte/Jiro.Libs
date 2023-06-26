@@ -1,14 +1,12 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Reflection;
-using System.Reflection.PortableExecutable;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Jiro.Commands.Base
@@ -56,13 +54,20 @@ namespace Jiro.Commands.Base
                     _logger?.LogInformation("Building: [{module}]", modules[localScope]);
                     var path = modules[localScope];
 
-                    await RunBuildCommandAsync(path);
+                    try
+                    {
+                        await RunBuildCommandAsync(path);
 
-                    var completepath = Path.Combine(path, debugPath);
-                    var outputFolder = Directory.GetDirectories(completepath, "net*").First();
+                        var completepath = Path.Combine(path, debugPath);
+                        var outputFolder = Directory.GetDirectories(completepath, "net*").First();
 
-                    _logger?.LogInformation("[{moduleName}]::Build done.\nOutput folder: {outputFolder}", modules[localScope], outputFolder);
-                    _modulePaths.Add(outputFolder);
+                        _logger?.LogInformation("[{moduleName}]::Build done.\nOutput folder: {outputFolder}", modules[localScope], outputFolder);
+                        _modulePaths.Add(outputFolder);
+                    }
+                    catch (Exception)
+                    {
+                        _logger?.LogError("Couldn't build module [{module}]", modules[localScope]);
+                    }
                 });
             }
 
@@ -77,10 +82,7 @@ namespace Jiro.Commands.Base
         private async Task RunBuildCommandAsync(string path)
         {
             if (!Directory.Exists(path))
-            {
-                _logger?.LogError("Target directory of plugin [name] doesn't exists", path);
-                return;
-            }
+                throw new ArgumentException($"Couldn't find {path}");
 
             using Process cmd = new();
             cmd.StartInfo.FileName = GetTerminal(GetOS());

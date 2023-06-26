@@ -1,16 +1,16 @@
 namespace Jiro.Commands.Results;
 
-public class TextResult : ICommandResult
+public sealed class TextResult : ICommandResult
 {
-    public string? Response { get; set; }
+    public string? Message { get; set; }
 
-    private TextResult(string? data)
+    private TextResult(string? message)
     {
-        Response = data;
+        Message = message;
     }
 
-    public static TextResult Create(string? data)
+    public static TextResult Create(string? message)
     {
-        return new TextResult(data);
+        return new TextResult(message);
     }
 }
