@@ -1,9 +1,11 @@
 ## What's Changed
 
 ### 📋 Detailed Changelog
+
 For detailed information about changes, new features, and breaking changes, see the [**📖 Changelog**](https://huebyte.github.io/Jiro.Libs/documentation/changelog/v3.0.0.html).
 
 ### 🔄 Commits in this release:
+
 - **Init** ([`39fa6dc`](https://github.com/HueByte/Jiro.Libs/commit/39fa6dc)) by @huebyte on 2023-03-09
 - **Nuget preparations** ([`7ec13a5`](https://github.com/HueByte/Jiro.Libs/commit/7ec13a5)) by @huebyte on 2023-03-09
 - **Example implementation of app and Plugin & Migrated more functionalities to library from Jiro & Improved the plugin base** ([`8bf1406`](https://github.com/HueByte/Jiro.Libs/commit/8bf1406)) by @huebyte on 2023-03-10
@@ -29,9 +31,10 @@ For detailed information about changes, new features, and breaking changes, see 
 - **Code names for changelogs** ([`bbb9fa8`](https://github.com/HueByte/Jiro.Libs/commit/bbb9fa8)) by @HueByte on 2025-07-13
 
 ### ℹ️ Release Information
+
 - **Version**: v3.0.0
 - **Branch**: main
 - **Generated on**: 2025-07-13 00:04:34 UTC
 - **Changelog**: [https://huebyte.github.io/Jiro.Libs/documentation/changelog/v3.0.0.html](https://huebyte.github.io/Jiro.Libs/documentation/changelog/v3.0.0.html)
 
-**Full Changelog**: https://github.com/HueByte/Jiro.Libs/compare/50416d97a3464bb526ae902d647d30993cb24436...v3.0.0
+**Full Changelog**: <https://github.com/HueByte/Jiro.Libs/compare/50416d97a3464bb526ae902d647d30993cb24436...v3.0.0>
