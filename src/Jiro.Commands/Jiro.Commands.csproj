@@ -7,7 +7,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Jiro.Commands</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <Authors>HueByte</Authors>
     <Title>Jiro.Commands</Title>
     <Summary>A powerful command and plugin framework for .NET applications</Summary>
