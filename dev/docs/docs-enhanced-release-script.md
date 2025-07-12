@@ -7,12 +7,14 @@ The `create-release.ps1` script has been significantly enhanced with quality che
 ### ✨ Quality Checks Integration
 
 #### 1. **Code Formatting** (`dotnet format`)
+
 - **Runs**: `dotnet format src/Main.sln --verify-no-changes`
 - **Auto-fix**: If formatting issues found, automatically runs `dotnet format src/Main.sln`
 - **Skip option**: Use `-SkipFormat` to bypass this step
 - **Benefits**: Ensures consistent code formatting before releases
 
 #### 2. **Markdown Linting** (after release notes generation)
+
 - **Runs**: `.\scripts\markdown-lint.ps1 -Fix`
 - **Timing**: Executes AFTER release notes file is created
 - **Auto-fix**: Automatically fixes markdown formatting issues
@@ -22,6 +24,7 @@ The `create-release.ps1` script has been significantly enhanced with quality che
 ### 🔄 Improved Git Workflow
 
 #### Enhanced Process Flow:
+
 1. **Quality Checks** (formatting & linting)
 2. **Generate Release Notes** → `dev/tags/release_notes_v{version}.md`
 3. **Lint Generated File** (markdown quality check)
@@ -30,6 +33,7 @@ The `create-release.ps1` script has been significantly enhanced with quality che
 6. **GitHub Release Creation**
 
 #### Git Operations:
+
 - **Auto-commit**: Commits formatting and linting changes with message: `chore: format code and lint markdown for release v{version}`
 - **Auto-push**: Pushes changes to origin before creating tag
 - **Tag creation**: Creates annotated tag with release message
@@ -87,12 +91,14 @@ The dry run now shows a comprehensive overview:
 ### ⚠️ Safety Features
 
 #### Change Detection:
+
 - **Uncommitted changes warning**: Alerts if working directory has changes
 - **Branch verification**: Warns if not on main branch
 - **Change tracking**: Tracks if formatting/linting made changes
 - **Confirmation prompts**: Asks for confirmation before proceeding
 
 #### Error Handling:
+
 - **Build failures**: Stops if dotnet format fails
 - **Lint failures**: Continues but reports issues
 - **Git failures**: Stops if tag creation or push fails
@@ -101,6 +107,7 @@ The dry run now shows a comprehensive overview:
 ### 🛠️ Technical Implementation
 
 #### Code Formatting Check:
+
 ```powershell
 $formatResult = dotnet format src/Main.sln --verify-no-changes 2>&1
 if ($LASTEXITCODE -ne 0) {
@@ -111,6 +118,7 @@ if ($LASTEXITCODE -ne 0) {
 ```
 
 #### Markdown Linting:
+
 ```powershell
 $markdownLintScript = Join-Path $PSScriptRoot "markdown-lint.ps1"
 if (Test-Path $markdownLintScript) {
@@ -120,6 +128,7 @@ if (Test-Path $markdownLintScript) {
 ```
 
 #### Git Operations:
+
 ```powershell
 if ($hasChanges -and -not $DryRun) {
     git add -A
@@ -139,6 +148,7 @@ if ($hasChanges -and -not $DryRun) {
 ### 🔄 Integration with CI/CD
 
 The enhanced script works seamlessly with existing GitHub Actions:
+
 - **Triggers**: Tag push still triggers `create-release.yml` workflow
 - **Quality**: Pre-push quality checks reduce CI failures
 - **Consistency**: Automated formatting ensures consistent codebase
