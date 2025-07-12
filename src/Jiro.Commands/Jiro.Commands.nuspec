@@ -28,7 +28,7 @@
       • Full dependency injection support
       • XML documentation for excellent IntelliSense support
     </description>
-    <releaseNotes>https://github.com/HueByte/Jiro.Libs/blob/main/dev/docs/changelog/v$version$.md</releaseNotes>
+    <releaseNotes>https://github.com/HueByte/Jiro.Libs/blob/main/dev/docs/changelog/v3.0.1.md</releaseNotes>
     <copyright>Copyright © HueByte 2025</copyright>
     <tags>commands plugins framework dotnet csharp extensibility cli command-line</tags>
 
