@@ -3,7 +3,7 @@ name: Jiro.Libs Simple Push Test
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - "src/**" # Avoid overlap with main CI workflow
 

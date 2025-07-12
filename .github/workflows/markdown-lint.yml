@@ -2,13 +2,13 @@ name: Jiro.Libs Markdown Linting
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
     paths:
       - "**/*.md"
       - ".github/workflows/markdown-lint.yml"
       - "dev/config/.markdownlint.json"
   pull_request:
-    branches: ["master", "dev"]
+    branches: ["main", "dev"]
     paths:
       - "**/*.md"
       - ".github/workflows/markdown-lint.yml"

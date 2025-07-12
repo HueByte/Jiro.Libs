@@ -1,10 +1,10 @@
 name: Deploy Jiro.Libs Documentation to GitHub Pages
 
-# Trigger the action on push to master branch
+# Trigger the action on push to main branch
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "dev/docs/**"
       - "assets/**"
