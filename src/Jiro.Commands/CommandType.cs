@@ -9,6 +9,12 @@ namespace Jiro.Commands
         /// Represents a text command.
         /// </summary>
         Text,
+
+        /// <summary>
+        /// Represents a JSON command.
+        /// </summary>
+        Json,
+
         /// <summary>
         /// Represents a graph command.
         /// </summary>

@@ -3,6 +3,15 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+
+# DocFX generated files
+generated/
+dev/_site/
+dev/_temp/
+dev/api/*.yml
+dev/api/.manifest
+!dev/assets/JiroBanner.png
+
 **/nuget.config
 **/.vscode
 # User-specific files
