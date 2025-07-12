@@ -12,6 +12,8 @@ dev/api/*.yml
 dev/api/.manifest
 !dev/assets/JiroBanner.png
 
+
+dev-local/
 **/nuget.config
 **/.vscode
 # User-specific files

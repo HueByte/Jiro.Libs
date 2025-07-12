@@ -5,7 +5,6 @@
 The Jiro.Commands framework implements a sophisticated command creation pipeline that automatically discovers, analyzes, and registers command methods from assemblies. This pipeline transforms decorated methods into executable command objects through a series of well-defined stages.
 
 ## Pipeline Architecture
-## Pipeline Architecture
 
 The command creation pipeline consists of the following sequential stages:
 

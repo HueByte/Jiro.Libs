@@ -113,25 +113,33 @@ try {
     Write-ColorOutput ""
 
     # Check for markdownlint configuration
-    if (Test-Path "dev\config\.markdownlint.json") {
-        Write-ColorOutput "📋 Using configuration from dev\config\.markdownlint.json" $InfoColor
-        $configFile = "dev\config\.markdownlint.json"
+    $configFile = $null
+    $configPaths = @(
+        "dev\config\.markdownlint.json",
+        ".markdownlint.json",
+        ".markdownlint.yaml",
+        ".markdownlint.yml"
+    )
+
+    foreach ($configPath in $configPaths) {
+        if (Test-Path $configPath) {
+            Write-ColorOutput "📋 Using configuration from $configPath" $InfoColor
+            $configFile = $configPath
+            break
+        }
     }
-    elseif (Test-Path ".markdownlint.json") {
-        Write-ColorOutput "📋 Using configuration from .markdownlint.json (root location)" $InfoColor
-        $configFile = ".markdownlint.json"
-    }
-    else {
-        Write-ColorOutput "⚠️  No .markdownlint.json found, using default rules" $WarningColor
-        $configFile = $null
+
+    if (-not $configFile) {
+        Write-ColorOutput "⚠️  No markdownlint configuration found, using default rules" $WarningColor
+        Write-ColorOutput "💡 Consider creating a .markdownlint.json file for consistent linting" $InfoColor
     }
 
     # Build markdownlint command
     $markdownlintArgs = @()
-    
+
     # Add path
     $markdownlintArgs += $Path
-    
+
     # Add ignore patterns
     $markdownlintArgs += "--ignore"
     $markdownlintArgs += "node_modules"
@@ -147,13 +155,13 @@ try {
     $markdownlintArgs += "bin"
     $markdownlintArgs += "--ignore"
     $markdownlintArgs += "obj"
-    
+
     # Add configuration file if present
     if ($configFile) {
         $markdownlintArgs += "--config"
         $markdownlintArgs += $configFile
     }
-    
+
     # Add fix flag if requested
     if ($Fix) {
         $markdownlintArgs += "--fix"
@@ -168,21 +176,30 @@ try {
     try {
         if ($Verbose) {
             & markdownlint @markdownlintArgs
+            $exitCode = $LASTEXITCODE
         }
         else {
             $output = & markdownlint @markdownlintArgs 2>&1
-            if ($LASTEXITCODE -eq 0) {
-                Write-ColorOutput "✅ Markdownlint completed successfully!" $SuccessColor
-                if ($output) {
-                    Write-ColorOutput "Output:" $InfoColor
-                    Write-Output $output
-                }
-            }
-            else {
-                Write-ColorOutput "❌ Markdownlint found issues:" $ErrorColor
+            $exitCode = $LASTEXITCODE
+        }
+
+        if ($exitCode -eq 0) {
+            Write-ColorOutput "✅ Markdownlint completed successfully!" $SuccessColor
+            if (-not $Verbose -and $output) {
+                Write-ColorOutput "Output:" $InfoColor
                 Write-Output $output
-                exit $LASTEXITCODE
             }
+        }
+        else {
+            Write-ColorOutput "❌ Markdownlint found issues:" $ErrorColor
+            if (-not $Verbose) {
+                Write-Output $output
+            }
+            if (-not $Fix) {
+                Write-ColorOutput "💡 Use -Fix parameter to automatically fix issues where possible." $InfoColor
+                Write-ColorOutput "⚠️  Note: Some issues (like line length) may require manual fixes." $WarningColor
+            }
+            exit $exitCode
         }
     }
     catch {
