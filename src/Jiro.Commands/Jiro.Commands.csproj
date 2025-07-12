@@ -5,13 +5,34 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Jiro.Commands</PackageId>
     <Version>3.0.0</Version>
     <Authors>HueByte</Authors>
-    <Description>This is a plugins and commands base for Jiro</Description>
+    <Title>Jiro.Commands</Title>
+    <Summary>A powerful command and plugin framework for .NET applications</Summary>
+    <Description>Jiro.Commands is a comprehensive framework for building command-based applications with plugin support. It provides a robust foundation for creating extensible .NET applications with dynamic command loading, type-safe parameter parsing, and flexible result handling.
+
+Features:
+• Dynamic command registration and execution
+• Plugin-based architecture with hot-loading capabilities
+• Advanced parameter parsing with type conversion
+• Multiple result types (Text, JSON, Image, Graph)
+• Quote-aware command tokenization
+• Comprehensive error handling and validation
+• Full dependency injection support
+• XML documentation for excellent IntelliSense support</Description>
     <PackageProjectUrl>https://github.com/HueByte/Jiro.Libs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HueByte/Jiro.Libs</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryBranch>main</RepositoryBranch>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>Jiro-Icon.png</PackageIcon>
+    <PackageTags>commands;plugins;framework;dotnet;csharp;extensibility;cli;command-line</PackageTags>
+    <Copyright>Copyright © HueByte 2025</Copyright>
+    <PackageReleaseNotes>https://github.com/HueByte/Jiro.Libs/blob/main/dev/docs/changelog/v$(Version).md</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +44,7 @@
 
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\dev\assets\Jiro-Icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

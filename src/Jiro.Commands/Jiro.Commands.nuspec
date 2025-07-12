@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Jiro.Commands</id>
+    <version>3.0.0</version>
+    <title>Jiro.Commands</title>
+    <authors>HueByte</authors>
+    <owners>HueByte</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/HueByte/Jiro.Libs</projectUrl>
+    <repository type="git" url="https://github.com/HueByte/Jiro.Libs.git" branch="main" />
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>A powerful command and plugin framework for .NET applications</summary>
+    <description>
+      Jiro.Commands is a comprehensive framework for building command-based applications with plugin support.
+      It provides a robust foundation for creating extensible .NET applications with dynamic command loading,
+      type-safe parameter parsing, and flexible result handling.
+
+      Features:
+      • Dynamic command registration and execution
+      • Plugin-based architecture with hot-loading capabilities
+      • Advanced parameter parsing with type conversion
+      • Multiple result types (Text, JSON, Image, Graph)
+      • Quote-aware command tokenization
+      • Comprehensive error handling and validation
+      • Full dependency injection support
+      • XML documentation for excellent IntelliSense support
+    </description>
+    <releaseNotes>https://github.com/HueByte/Jiro.Libs/blob/main/dev/docs/changelog/v$version$.md</releaseNotes>
+    <copyright>Copyright © HueByte 2025</copyright>
+    <tags>commands plugins framework dotnet csharp extensibility cli command-line</tags>
+
+    <!-- Target Framework -->
+    <dependencies>
+      <group targetFramework="net9.0">
+        <dependency id="Microsoft.Extensions.Configuration" version="9.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="9.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging" version="9.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+
+  <files>
+    <!-- Library files -->
+    <file src="bin\Release\net9.0\Jiro.Commands.dll" target="lib\net9.0\Jiro.Commands.dll" />
+    <file src="bin\Release\net9.0\Jiro.Commands.pdb" target="lib\net9.0\Jiro.Commands.pdb" />
+    <file src="bin\Release\net9.0\Jiro.Commands.xml" target="lib\net9.0\Jiro.Commands.xml" />
+
+    <!-- Documentation -->
+    <file src="..\..\README.md" target="README.md" />
+    <file src="..\..\LICENSE" target="LICENSE" />
+
+    <!-- Package icon (if exists) -->
+    <file src="..\..\dev\assets\Jiro-Icon.png" target="icon.png" />
+  </files>
+</package>

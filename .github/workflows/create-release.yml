@@ -46,12 +46,19 @@ jobs:
           # Build the solution
           dotnet build src/Main.sln --no-restore --configuration Release
 
-          # Pack the Jiro.Commands library with the tag version
-          dotnet pack src/Jiro.Commands/Jiro.Commands.csproj \
+          # Create packages directory
+          mkdir -p packages
+
+          # Pack the Jiro.Commands library using nuspec file
+          cd src/Jiro.Commands
+          dotnet pack \
             --no-build \
             --configuration Release \
-            --output ./packages \
-            -p:PackageVersion=${{ steps.get_version.outputs.version }}
+            --output ../../packages \
+            -p:PackageVersion=${{ steps.get_version.outputs.version }} \
+            -p:AssemblyVersion=${{ steps.get_version.outputs.version }} \
+            -p:FileVersion=${{ steps.get_version.outputs.version }}
+          cd ../..
 
       - name: Run tests
         run: |
@@ -60,15 +67,6 @@ jobs:
             --configuration Release \
             --logger trx \
             --results-directory ./TestResults
-
-      - name: Add to GitHub Packages
-        run: |
-          dotnet nuget push packages/*.nupkg \
-            --api-key ${{ secrets.GITHUB_TOKEN }} \
-            --source https://nuget.pkg.github.com/HueByte/index.json \
-            --skip-duplicate
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Read release notes from dev/tags/release_notes_v{version}.md
         id: release_notes
@@ -85,7 +83,7 @@ jobs:
             echo "RELEASE_NOTES=Jiro.Libs v${{ steps.get_version.outputs.version }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Publish to NuGet
+      - name: Publish to NuGet.org
         if: env.NUGET_TOKEN != ''
         run: |
           dotnet nuget push packages/*.nupkg \
@@ -94,6 +92,15 @@ jobs:
             --skip-duplicate
         env:
           NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget push packages/*.nupkg \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --source https://nuget.pkg.github.com/HueByte/index.json \
+            --skip-duplicate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1

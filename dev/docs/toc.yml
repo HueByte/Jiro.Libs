@@ -6,3 +6,5 @@
   href: command-creation-pipeline.md
 - name: Compiled Lambdas
   href: compiled-lambdas.md
+- name: Release script
+  href: docs-enhanced-release-script.md
