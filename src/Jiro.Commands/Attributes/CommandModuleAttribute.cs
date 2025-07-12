@@ -9,17 +9,17 @@ namespace Jiro.Commands.Attributes;
 /// </summary>
 public class CommandModuleAttribute : Attribute
 {
-    /// <summary>
-    /// Gets the name of the command module.
-    /// </summary>
-    public string ModuleName { get; }
+	/// <summary>
+	/// Gets the name of the command module.
+	/// </summary>
+	public string ModuleName { get; }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CommandModuleAttribute"/> class.
-    /// </summary>
-    /// <param name="moduleName">The name of the command module.</param>
-    public CommandModuleAttribute(string moduleName)
-    {
-        ModuleName = moduleName;
-    }
+	/// <summary>
+	/// Initializes a new instance of the <see cref="CommandModuleAttribute"/> class.
+	/// </summary>
+	/// <param name="moduleName">The name of the command module.</param>
+	public CommandModuleAttribute(string moduleName)
+	{
+		ModuleName = moduleName;
+	}
 }
