@@ -69,19 +69,30 @@ namespace Jiro.Commands.Base
 			var commandType = method.GetCustomAttribute<CommandAttribute>()?.CommandType ?? CommandType.Text;
 			var commandDescription = method.GetCustomAttribute<CommandAttribute>()?.CommandDescription ?? "";
 			var commandSyntax = method.GetCustomAttribute<CommandAttribute>()?.CommandSyntax ?? "";
-			// var isAsync = method.GetCustomAttribute<AsyncStateMachineAttribute>() is not null;
-			var isAsync = true;
+			// Check if method returns Task or Task<T>
+			var isAsync = method.ReturnType == typeof(Task) ||
+						  (method.ReturnType.IsGenericType && method.ReturnType.GetGenericTypeDefinition() == typeof(Task<>));
+
 			var compiledMethod = CompileMethodInvoker<TBaseInstance, TReturn>(method);
 			var args = GetParameters(method);
-
 			if (compiledMethod is null) return null;
+
+			// Create wrapper to match expected signature
+			Func<ICommandBase, object?[], Task> descriptor = async (instance, args) =>
+			{
+				var result = compiledMethod((TBaseInstance)(object)instance, args ?? Array.Empty<object?>());
+				if (result is Task task)
+					await task;
+				else if (result is not null)
+					await Task.FromResult(result);
+			};
 
 			CommandInfo commandInfo = new(
 				commandName,
 				commandType,
 				isAsync,
 				delcaringType,
-				compiledMethod as Func<ICommandBase, object[], Task>,
+				descriptor,
 				args,
 				commandSyntax,
 				commandDescription
@@ -96,29 +107,37 @@ namespace Jiro.Commands.Base
 		/// <typeparam name="TReturn">The return type of the method.</typeparam>
 		/// <param name="method">The method info to compile.</param>
 		/// <returns>A delegate that invokes the method on the given instance with the provided arguments.</returns>
-		internal static Func<TInstance, object[], TReturn> CompileMethodInvoker<TInstance, TReturn>(MethodInfo method)
+		internal static Func<TInstance, object?[], TReturn> CompileMethodInvoker<TInstance, TReturn>(MethodInfo method)
 		{
-			var parameters = method.GetParameters();
-			var paramsExp = new Expression[parameters.Length];
-
-			// set first param as Module instance that's fetched from DI container
-			var instanceExp = Expression.Parameter(typeof(TInstance), "instance");
-			var argsExp = Expression.Parameter(typeof(object[]), "args");
-
-			for (var i = 0; i < parameters.Length; i++)
+			try
 			{
-				var parameter = parameters[i];
+				var parameters = method.GetParameters();
+				var paramsExp = new Expression[parameters.Length];
 
-				var indexExp = Expression.Constant(i);
-				var accessExp = Expression.ArrayIndex(argsExp, indexExp);
-				paramsExp[i] = Expression.Convert(accessExp, parameter.ParameterType);
+				// set first param as Module instance that's fetched from DI container
+				var instanceExp = Expression.Parameter(typeof(TInstance), "instance");
+				var argsExp = Expression.Parameter(typeof(object?[]), "args");
+
+				for (var i = 0; i < parameters.Length; i++)
+				{
+					var parameter = parameters[i];
+
+					var indexExp = Expression.Constant(i);
+					var accessExp = Expression.ArrayIndex(argsExp, indexExp);
+					paramsExp[i] = Expression.Convert(accessExp, parameter.ParameterType);
+				}
+
+				var callExp = Expression.Call(Expression.Convert(instanceExp, method.ReflectedType!), method, paramsExp);
+				var finalExp = Expression.Convert(callExp, typeof(TReturn));
+				var lambda = Expression.Lambda<Func<TInstance, object?[], TReturn>>(finalExp, instanceExp, argsExp);
+
+				return lambda.Compile();
 			}
-
-			var callExp = Expression.Call(Expression.Convert(instanceExp, method.ReflectedType!), method, paramsExp);
-			var finalExp = Expression.Convert(callExp, typeof(TReturn));
-			var lambda = Expression.Lambda<Func<TInstance, object[], TReturn>>(finalExp, instanceExp, argsExp);
-
-			return lambda.Compile();
+			catch (Exception ex)
+			{
+				// Log the error or handle it appropriately
+				throw new InvalidOperationException($"Failed to compile method invoker for {method.Name}: {ex.Message}", ex);
+			}
 		}
 
 		/// <summary>

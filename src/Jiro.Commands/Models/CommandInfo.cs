@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Text;
+
 using Jiro.Commands.Exceptions;
 using Jiro.Commands.Results;
 
@@ -90,7 +93,11 @@ public class CommandInfo
 		};
 
 		var instance = scopedServiceProvider.GetRequiredService(Module);
-		object?[] args = ParseArgs(commandModule, tokens);
+
+		// use a quote-aware tokenizer instead of raw tokens
+		var rawInput = string.Join(' ', tokens);
+		var realTokens = Tokenize(rawInput);
+		object?[] args = ParseArgs(commandModule, realTokens);
 
 		if (instance is null)
 		{
@@ -160,5 +167,42 @@ public class CommandInfo
 		}
 
 		return args;
+	}
+
+	// Quote-aware tokenizer
+	private static string[] Tokenize(string input)
+	{
+		var tokens = new List<string>();
+		var current = new StringBuilder();
+		bool inQuotes = false;
+		foreach (var c in input)
+		{
+			if (c == '"')
+			{
+				inQuotes = !inQuotes;
+				if (!inQuotes && current.Length > 0)
+				{
+					tokens.Add(current.ToString());
+					current.Clear();
+				}
+				continue;
+			}
+			if (char.IsWhiteSpace(c) && !inQuotes)
+			{
+				if (current.Length > 0)
+				{
+					tokens.Add(current.ToString());
+					current.Clear();
+				}
+			}
+			else
+			{
+				current.Append(c);
+			}
+		}
+		if (current.Length > 0)
+			tokens.Add(current.ToString());
+
+		return tokens.ToArray();
 	}
 }

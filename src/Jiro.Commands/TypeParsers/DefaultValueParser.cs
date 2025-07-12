@@ -1,3 +1,9 @@
+using System;
+using System.ComponentModel;
+using System.Globalization;
+
+using Jiro.Commands.Exceptions;
+
 namespace Jiro.Commands.TypeParsers
 {
 	/// <summary>
@@ -14,15 +20,31 @@ namespace Jiro.Commands.TypeParsers
 		public override object? Parse(string? input)
 		{
 			var type = typeof(T);
-			if (string.IsNullOrEmpty(input))
-			{
-				if (type.IsValueType)
-					return Activator.CreateInstance(type);
+			var targetType = Nullable.GetUnderlyingType(type) ?? type;
 
+			if (string.IsNullOrWhiteSpace(input))
+			{
+				if (targetType.IsValueType)
+					return Activator.CreateInstance(targetType);
 				return null;
 			}
 
-			return Convert.ChangeType(input, type);
+			try
+			{
+				if (targetType.IsEnum)
+					return Enum.Parse(targetType, input, ignoreCase: true);
+
+				var converter = TypeDescriptor.GetConverter(targetType);
+				if (converter != null && converter.CanConvertFrom(typeof(string)))
+					return converter.ConvertFrom(null, CultureInfo.InvariantCulture, input);
+
+				return Convert.ChangeType(input, targetType, CultureInfo.InvariantCulture);
+			}
+			catch (Exception ex)
+			{
+				throw new CommandException(targetType.Name,
+					$"Couldn't parse '{input}' as {targetType.Name}: {ex.Message}");
+			}
 		}
 	}
 }

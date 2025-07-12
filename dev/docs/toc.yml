@@ -2,3 +2,7 @@
   href: index.md
 - name: Examples
   href: examples.md
+- name: Command Creation Pipeline
+  href: command-creation-pipeline.md
+- name: Compiled Lambdas
+  href: compiled-lambdas.md
