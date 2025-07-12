@@ -6,10 +6,22 @@ using Jiro.Commands.TypeParsers;
 
 namespace Jiro.Commands.Base
 {
+    /// <summary>
+    /// Provides utility methods for reflection-based command discovery and invocation.
+    /// </summary>
     internal static class ReflectionUtilities
     {
+        /// <summary>
+        /// Gets all assemblies loaded in the current application domain.
+        /// </summary>
+        /// <returns>An array of loaded assemblies.</returns>
         internal static Assembly[]? GetDomainAssemblies() => AppDomain.CurrentDomain.GetAssemblies();
 
+        /// <summary>
+        /// Gets all types marked as command modules from the provided assemblies.
+        /// </summary>
+        /// <param name="assemblies">The assemblies to search.</param>
+        /// <returns>An array of types marked as command modules.</returns>
         internal static Type[]? GetCommandModules(Assembly[] assemblies)
         {
             var commandModules = assemblies
@@ -23,6 +35,11 @@ namespace Jiro.Commands.Base
             return commandModules;
         }
 
+        /// <summary>
+        /// Gets all methods marked as commands from the specified type.
+        /// </summary>
+        /// <param name="type">The type to search for command methods.</param>
+        /// <returns>An array of methods marked as commands.</returns>
         internal static MethodInfo[] GetPotentialCommands(Type type)
         {
             var methodInfos = type
@@ -33,6 +50,13 @@ namespace Jiro.Commands.Base
             return methodInfos;
         }
 
+        /// <summary>
+        /// Builds a <see cref="CommandInfo"/> object from the specified method info.
+        /// </summary>
+        /// <typeparam name="TBaseInstance">The base instance type.</typeparam>
+        /// <typeparam name="TReturn">The return type.</typeparam>
+        /// <param name="method">The method info to build from.</param>
+        /// <returns>A <see cref="CommandInfo"/> object, or null if the method is invalid.</returns>
         internal static CommandInfo? BuildCommandFromMethodInfo<TBaseInstance, TReturn>(MethodInfo method)
         {
             if (method is null) return null;
@@ -61,10 +85,16 @@ namespace Jiro.Commands.Base
                 commandSyntax,
                 commandDescription
             );
-
             return commandInfo;
         }
 
+        /// <summary>
+        /// Compiles a method into a delegate for fast invocation with the given instance and arguments.
+        /// </summary>
+        /// <typeparam name="TInstance">The type of the instance (usually the command module).</typeparam>
+        /// <typeparam name="TReturn">The return type of the method.</typeparam>
+        /// <param name="method">The method info to compile.</param>
+        /// <returns>A delegate that invokes the method on the given instance with the provided arguments.</returns>
         internal static Func<TInstance, object[], TReturn> CompileMethodInvoker<TInstance, TReturn>(MethodInfo method)
         {
             var parameters = method.GetParameters();
@@ -90,6 +120,11 @@ namespace Jiro.Commands.Base
             return lambda.Compile();
         }
 
+        /// <summary>
+        /// Gets the list of parameter information for a given method, including type and parser.
+        /// </summary>
+        /// <param name="methodInfo">The method info to extract parameters from.</param>
+        /// <returns>A read-only list of <see cref="ParameterInfo"/> objects for the method's parameters.</returns>
         internal static IReadOnlyList<Jiro.Commands.Models.ParameterInfo> GetParameters(MethodInfo methodInfo)
         {
             List<Jiro.Commands.Models.ParameterInfo> parameterInfos = new();
@@ -105,6 +140,11 @@ namespace Jiro.Commands.Base
             return parameterInfos;
         }
 
+        /// <summary>
+        /// Gets a type parser for the specified parameter type.
+        /// </summary>
+        /// <param name="type">The parameter type to get a parser for.</param>
+        /// <returns>A <see cref="TypeParser"/> for the given type.</returns>
         private static TypeParser? GetParser(Type type)
         {
             // todo

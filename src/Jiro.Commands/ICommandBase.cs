@@ -1,6 +1,6 @@
 namespace Jiro.Commands;
 
 /// <summary>
-/// Base for command classes
+/// Represents the base interface for all command classes.
 /// </summary>
 public interface ICommandBase { }

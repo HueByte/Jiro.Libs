@@ -6,9 +6,8 @@
     <Nullable>enable</Nullable>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <PackageId>Jiro.Commands</PackageId>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <Authors>HueByte</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>This is a plugins and commands base for Jiro</Description>
     <PackageProjectUrl>https://github.com/HueByte/Jiro.Libs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HueByte/Jiro.Libs</RepositoryUrl>

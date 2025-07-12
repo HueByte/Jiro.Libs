@@ -5,8 +5,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Jiro.Commands.Base;
 
+/// <summary>
+/// Provides extension methods for registering command modules and commands with the dependency injection container.
+/// </summary>
 public static class CommandRegistrator
 {
+    /// <summary>
+    /// Registers command modules and commands with the service collection.
+    /// </summary>
+    /// <param name="services">The service collection to register with.</param>
+    /// <param name="defaultCommand">The name of the default command.</param>
+    /// <returns>The updated <see cref="IServiceCollection"/>.</returns>
     public static IServiceCollection RegisterCommands(this IServiceCollection services, string defaultCommand)
     {
         var assemblies = ReflectionUtilities.GetDomainAssemblies() ?? throw new Exception("Assemblies is null, something went wrong");
@@ -32,7 +41,8 @@ public static class CommandRegistrator
 
             services.AddScoped(container);
             commandModulesInfos.Add(commandModuleInfo);
-        };
+        }
+        ;
 
         CommandsContext globalContainer = new();
 

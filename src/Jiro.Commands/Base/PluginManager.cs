@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Jiro.Commands.Base
 {
+    /// <summary>
+    /// Manages the loading, building, and registration of plugins and modules.
+    /// </summary>
     public class PluginManager
     {
         private readonly ILogger? _logger;
@@ -21,6 +24,12 @@ namespace Jiro.Commands.Base
         private readonly List<string> _moduleNames = new();
         private List<Type>? _serviceConfigurators;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PluginManager"/> class.
+        /// </summary>
+        /// <param name="services">The service collection to use for registration.</param>
+        /// <param name="configurationManager">The configuration manager for app settings.</param>
+        /// <param name="logger">The logger for diagnostic output.</param>
         public PluginManager(IServiceCollection services, ConfigurationManager configurationManager, ILogger? logger = null)
         {
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly!;
@@ -32,8 +41,9 @@ namespace Jiro.Commands.Base
         }
 
         /// <summary>
-        /// Debug Builds modules included in appsettings
+        /// Builds modules included in appsettings for debug builds.
         /// </summary>
+        /// <param name="modulePaths">The paths to the modules to build.</param>
         public void BuildDevModules(string[]? modulePaths)
         {
             if (modulePaths is null) return;
