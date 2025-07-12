@@ -116,6 +116,20 @@ public class PluginCommand : ICommandBase
 
 Contributions, issues, and feature requests are welcome! Please open an issue or pull request on [GitHub](https://github.com/HueByte/Jiro).
 
+### Development Setup
+
+This project uses [EditorConfig](https://editorconfig.org/) to maintain consistent coding styles. Make sure your editor supports EditorConfig or install the appropriate extension:
+
+- **VS Code**: Install the [EditorConfig extension](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- **Visual Studio**: Built-in support (2017+)
+- **Other editors**: See [EditorConfig.org](https://editorconfig.org/) for editor-specific setup
+
+### Code Formatting
+
+- Run `dotnet format` before committing to ensure code follows the project's style guidelines
+- The CI pipeline will verify that code formatting is consistent
+- See [docs/EDITORCONFIG.md](docs/EDITORCONFIG.md) for detailed information about coding standards
+
 ---
 
 ## License
