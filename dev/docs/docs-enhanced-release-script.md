@@ -73,7 +73,7 @@ The `create-release.ps1` script has been significantly enhanced with quality che
 
 The dry run now shows a comprehensive overview:
 
-```
+```cs
 🔍 DRY RUN - Actions that would be performed:
 1. Quality Checks:
    - Run dotnet format on solution
@@ -100,7 +100,7 @@ The dry run now shows a comprehensive overview:
 #### Error Handling:
 
 - **Build failures**: Stops if dotnet format fails
-- **Lint failures**: Continues but reports issues
+- **Lint failures**: Stops if markdown linting finds any issues (even unfixable ones)
 - **Git failures**: Stops if tag creation or push fails
 - **Missing tools**: Warns if markdown-lint script not found
 
@@ -127,7 +127,7 @@ if (Test-Path $markdownLintScript) {
 }
 ```
 
-#### Git Operations:
+#### Git Auto Operations:
 
 ```powershell
 if ($hasChanges -and -not $DryRun) {

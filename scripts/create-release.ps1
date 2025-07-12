@@ -302,8 +302,9 @@ if (-not $SkipLint) {
                     Write-ColorOutput "✅ Markdown linting completed successfully" "Green"
                     $hasChanges = $true
                 } else {
-                    Write-ColorOutput "⚠️ Markdown linting found issues that were automatically fixed" "Yellow"
-                    $hasChanges = $true
+                    Write-ColorOutput "❌ Markdown linting failed with errors" "Red"
+                    Write-ColorOutput "   Exit code: $LASTEXITCODE" "Red"
+                    exit 1
                 }
             }
         } catch {
