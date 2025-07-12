@@ -84,7 +84,6 @@ jobs:
           fi
 
       - name: Publish to NuGet.org
-        if: env.NUGET_TOKEN != ''
         run: |
           dotnet nuget push packages/*.nupkg \
             --api-key ${{ secrets.NUGET_TOKEN }} \
@@ -93,14 +92,14 @@ jobs:
         env:
           NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
-      - name: Publish to GitHub Packages
-        run: |
-          dotnet nuget push packages/*.nupkg \
-            --api-key ${{ secrets.GITHUB_TOKEN }} \
-            --source https://nuget.pkg.github.com/HueByte/index.json \
-            --skip-duplicate
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Publish to GitHub Packages
+      #   run: |
+      #     dotnet nuget push packages/*.nupkg \
+      #       --api-key ${{ secrets.GITHUB_TOKEN }} \
+      #       --source https://nuget.pkg.github.com/HueByte/index.json \
+      #       --skip-duplicate
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -119,7 +118,7 @@ jobs:
             - **Package ID**: Jiro.Commands
             - **Version**: ${{ steps.get_version.outputs.version }}
             - **Target Framework**: .NET 9.0
-            - **Published to**: NuGet.org and GitHub Packages
+            - **Published to**: NuGet.org
           draft: false
           prerelease: false
           files: |
