@@ -1,5 +1,5 @@
 # Create Release Script
-# This script creates a release and tag when merging to master
+# This script creates a release and tag when merging to main
 
 param(
     [string]$Version = "",
@@ -38,17 +38,17 @@ function Write-ColorOutput {
         [string]$Message,
         [string]$Color = "White"
     )
-    
+
     $colors = @{
         "Red"     = "91"
-        "Green"   = "92" 
+        "Green"   = "92"
         "Yellow"  = "93"
         "Blue"    = "94"
         "Magenta" = "95"
         "Cyan"    = "96"
         "White"   = "97"
     }
-    
+
     if ($colors.ContainsKey($Color)) {
         Write-Host "`e[$($colors[$Color])m$Message`e[0m"
     }
@@ -65,8 +65,8 @@ if (-not (Test-Path ".git")) {
 
 # Check current branch
 $currentBranch = git branch --show-current
-if ($currentBranch -ne "master") {
-    Write-ColorOutput "⚠️ Warning: You are not on the master branch (current: $currentBranch)" "Yellow"
+if ($currentBranch -ne "main") {
+    Write-ColorOutput "⚠️ Warning: You are not on the main branch (current: $currentBranch)" "Yellow"
     $continue = Read-Host "Do you want to continue anyway? (y/N)"
     if ($continue -ne "y" -and $continue -ne "Y") {
         Write-ColorOutput "Aborted by user" "Yellow"
@@ -77,11 +77,11 @@ if ($currentBranch -ne "master") {
 # Auto-generate version if not provided
 if ([string]::IsNullOrWhiteSpace($Version)) {
     Write-ColorOutput "🔍 Auto-generating version..." "Cyan"
-    
+
     # Try to get version from .csproj files
     $csprojFiles = Get-ChildItem -Recurse -Filter "*.csproj"
     $projectVersion = $null
-    
+
     foreach ($file in $csprojFiles) {
         $content = Get-Content $file.FullName
         $versionLine = $content | Where-Object { $_ -match '<Version>(.*)</Version>' }
@@ -91,7 +91,7 @@ if ([string]::IsNullOrWhiteSpace($Version)) {
             break
         }
     }
-    
+
     if ($projectVersion) {
         $Version = "v$projectVersion"
     }
@@ -166,7 +166,7 @@ $commits
 
 ### ℹ️ Release Information
 - **Version**: $Version
-- **Branch**: $currentBranch  
+- **Branch**: $currentBranch
 - **Generated on**: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss UTC")
 - **Changelog**: [$changelogPath]($changelogPath)
 
@@ -240,7 +240,7 @@ $buildArtifacts = @()
 if ($AttachBuilds) {
     Write-ColorOutput "📦 Searching for build artifacts..." "Cyan"
     $buildArtifacts = Get-BuildArtifacts -CustomPath $BuildPath
-    
+
     if ($buildArtifacts.Count -gt 0) {
         Write-ColorOutput "Found $($buildArtifacts.Count) artifact(s):" "Green"
         foreach ($artifact in $buildArtifacts) {
@@ -264,10 +264,10 @@ function Get-BuildArtifacts {
     param(
         [string]$CustomPath = ""
     )
-    
+
     $artifacts = @()
     $searchPaths = @()
-    
+
     if (-not [string]::IsNullOrWhiteSpace($CustomPath)) {
         $searchPaths += $CustomPath
     }
@@ -284,18 +284,18 @@ function Get-BuildArtifacts {
             "build"
         )
     }
-    
+
     foreach ($path in $searchPaths) {
         if (Test-Path $path) {
             Write-ColorOutput "🔍 Searching for artifacts in: $path" "Cyan"
-            
+
             # Look for common artifact types
             $files = Get-ChildItem -Path $path -Recurse -File | Where-Object {
                 $_.Extension -in @('.zip', '.tar.gz', '.exe', '.msi', '.nupkg', '.dll') -or
                 $_.Name -like '*publish*' -or
                 $_.Name -like '*release*'
             }
-            
+
             foreach ($file in $files) {
                 $artifacts += @{
                     Path = $file.FullName
@@ -305,6 +305,6 @@ function Get-BuildArtifacts {
             }
         }
     }
-    
+
     return $artifacts
 }
