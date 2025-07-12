@@ -8,3 +8,5 @@
   href: compiled-lambdas.md
 - name: Release script
   href: docs-enhanced-release-script.md
+- name: Changelog
+  href: changelog/toc.yml

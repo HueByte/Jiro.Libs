@@ -7,7 +7,7 @@
     <authors>HueByte</authors>
     <owners>HueByte</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/HueByte/Jiro.Libs</projectUrl>
+    <projectUrl>https://huebyte.github.io/Jiro.Libs/index.html</projectUrl>
     <repository type="git" url="https://github.com/HueByte/Jiro.Libs.git" branch="main" />
     <icon>icon.png</icon>
     <readme>README.md</readme>
