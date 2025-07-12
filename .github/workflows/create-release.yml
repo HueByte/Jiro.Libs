@@ -1,0 +1,119 @@
+name: Jiro.Libs Release Management
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-and-release:
+    name: Build and Release Jiro.Libs
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          version=${GITHUB_REF#refs/tags/v}
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "Release version: $version"
+
+      - name: Update project version
+        run: |
+          # Update the version in the project file to match the tag
+          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.get_version.outputs.version }}<\/Version>/" src/Jiro.Commands/Jiro.Commands.csproj
+
+          # Verify the change
+          echo "Updated version in project file:"
+          grep -n "Version" src/Jiro.Commands/Jiro.Commands.csproj
+
+      - name: Build and Pack Libraries
+        run: |
+          # Restore dependencies
+          dotnet restore src/Main.sln
+
+          # Build the solution
+          dotnet build src/Main.sln --no-restore --configuration Release
+
+          # Pack the Jiro.Commands library with the tag version
+          dotnet pack src/Jiro.Commands/Jiro.Commands.csproj \
+            --no-build \
+            --configuration Release \
+            --output ./packages \
+            -p:PackageVersion=${{ steps.get_version.outputs.version }}
+
+      - name: Run tests
+        run: |
+          dotnet test src/Main.sln \
+            --no-build \
+            --configuration Release \
+            --logger trx \
+            --results-directory ./TestResults
+
+      - name: Add to GitHub Packages
+        run: |
+          dotnet nuget push packages/*.nupkg \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --source https://nuget.pkg.github.com/HueByte/index.json \
+            --skip-duplicate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read release notes from dev/tags/release_notes_v{version}.md
+        id: release_notes
+        run: |
+          release_notes_file="dev/tags/release_notes_v${{ steps.get_version.outputs.version }}.md"
+
+          if [ -f "$release_notes_file" ]; then
+            echo "Found release notes file: $release_notes_file"
+            echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+            cat "$release_notes_file" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "No release notes file found at: $release_notes_file"
+            echo "RELEASE_NOTES=Jiro.Libs v${{ steps.get_version.outputs.version }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish to NuGet
+        if: env.NUGET_TOKEN != ''
+        run: |
+          dotnet nuget push packages/*.nupkg \
+            --api-key ${{ secrets.NUGET_TOKEN }} \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
+        env:
+          NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "v${{ steps.get_version.outputs.version }}"
+          name: "Jiro.Commands v${{ steps.get_version.outputs.version }}"
+          body: |
+            ${{ steps.release_notes.outputs.RELEASE_NOTES }}
+
+            ## 📦 NuGet Package
+            ```
+            dotnet add package Jiro.Commands --version ${{ steps.get_version.outputs.version }}
+            ```
+
+            ## 📋 Package Information
+            - **Package ID**: Jiro.Commands
+            - **Version**: ${{ steps.get_version.outputs.version }}
+            - **Target Framework**: .NET 9.0
+            - **Published to**: NuGet.org and GitHub Packages
+          draft: false
+          prerelease: false
+          files: |
+            packages/*.nupkg

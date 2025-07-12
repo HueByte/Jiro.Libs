@@ -288,8 +288,8 @@ else
 fi
 
 
-# Save release notes to dev/tags/{releaseVersion}
-RELEASE_NOTES_FILE="dev/tags/$VERSION"
+# Save release notes to dev/tags/release_notes_v{VERSION}.md
+RELEASE_NOTES_FILE="dev/tags/release_notes_$VERSION.md"
 mkdir -p dev/tags
 echo "$RELEASE_NOTES" > "$RELEASE_NOTES_FILE"
 

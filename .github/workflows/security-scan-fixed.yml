@@ -1,0 +1,84 @@
+name: Jiro.Libs CodeQL Security Analysis
+
+on:
+  schedule:
+    # Run CodeQL analysis weekly on Fridays at 2 AM UTC
+    - cron: "0 2 * * 5"
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: "9.0.x"
+  SOLUTION_PATH: "./src/Main.sln"
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Vulnerability Scan
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+          queries: security-extended,security-and-quality
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Build solution
+        run: dotnet build ${{ env.SOLUTION_PATH }} --no-restore --configuration Release
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:csharp"
+
+      - name: Run .NET security audit
+        run: |
+          echo "## Security Audit Results" >> $GITHUB_STEP_SUMMARY
+          echo "Date: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Run dotnet list package with vulnerabilities check
+          AUDIT_OUTPUT=$(dotnet list ${{ env.SOLUTION_PATH }} package --vulnerable --include-transitive 2>&1 || true)
+
+          if echo "$AUDIT_OUTPUT" | grep -q "no vulnerable packages"; then
+            echo "✅ **No vulnerable packages found**" >> $GITHUB_STEP_SUMMARY
+          elif echo "$AUDIT_OUTPUT" | grep -q "vulnerable"; then
+            echo "⚠️ **Vulnerable packages detected:**" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "$AUDIT_OUTPUT" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            
+            # Exit with error if vulnerabilities found
+            echo "Security vulnerabilities found in dependencies!"
+            exit 1
+          else
+            echo "ℹ️ **Security audit completed**" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "$AUDIT_OUTPUT" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload security scan results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-scan-results
+          path: |
+            ./TestResults/**
+          retention-days: 30

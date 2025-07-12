@@ -212,8 +212,8 @@ catch {
 }
 
 
-# Save release notes to dev/tags/$Version
-$releaseNotesFile = "dev/tags/$Version"
+# Save release notes to dev/tags/release_notes_v{Version}.md
+$releaseNotesFile = "dev/tags/release_notes_$Version.md"
 if (-not (Test-Path "dev/tags")) { New-Item -ItemType Directory -Path "dev/tags" | Out-Null }
 $releaseNotes | Out-File -FilePath $releaseNotesFile -Encoding UTF8
 

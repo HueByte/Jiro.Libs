@@ -1,0 +1,110 @@
+name: Deploy Jiro.Libs Documentation to GitHub Pages
+
+# Trigger the action on push to master branch
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "dev/docs/**"
+      - "assets/**"
+      - "dev/docfx.json"
+      - "dev/index.md"
+      - "dev/toc.yml"
+      - "src/**/*.cs"
+      - "scripts/generate-project-structure.ps1"
+      - "scripts/generate-project-structure.sh"
+      - ".github/workflows/deploy-docs.yml"
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: "Force rebuild even if no changes detected"
+        required: false
+        default: false
+        type: boolean
+
+# Sets permissions of the GITHUB_TOKEN to allow pushing to gh-pages branch
+permissions:
+  contents: write
+  actions: read
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "gh-pages-deploy"
+  cancel-in-progress: false
+
+jobs:
+  publish-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for proper git information
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Setup DocFX
+        run: dotnet tool update -g docfx --version 2.75.3
+
+      - name: Setup eza for tree generation
+        uses: ./.github/actions/setup-eza
+
+      - name: Generate project structure documentation
+        run: |
+          # Generate project structure documentation
+          # The script will now handle eza installation automatically if our setup failed
+          chmod +x scripts/generate-project-structure.ps1
+          pwsh scripts/generate-project-structure.ps1
+        continue-on-error: true # Don't fail the build if structure generation fails
+
+      - name: Restore dependencies for API documentation
+        run: dotnet restore src/Main.sln
+        continue-on-error: true # API docs will still generate even if restore fails
+
+      - name: Build .NET projects for XML documentation generation
+        run: |
+          dotnet build src/Jiro.Kernel/Jiro.Core/Jiro.Core.csproj --configuration Release --no-restore
+          dotnet build src/Jiro.Kernel/Jiro.App/Jiro.App.csproj --configuration Release --no-restore
+          dotnet build src/Jiro.Kernel/Jiro.Infrastructure/Jiro.Infrastructure.csproj --configuration Release --no-restore
+        continue-on-error: true # Continue even if some projects fail to build
+
+      - name: Build documentation with DocFX
+        run: |
+          cd dev
+          docfx docfx.json
+        env:
+          DOCFX_SOURCE_BRANCH_NAME: ${{ github.ref_name }}
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "dev/_site" ]; then
+            echo "❌ DocFX build failed - _site directory not found"
+            exit 1
+          fi
+          echo "✅ DocFX build successful"
+          echo "Generated files:"
+          ls -la dev/_site/
+          echo ""
+          echo "Documentation structure:"
+          find dev/_site -type f -name "*.html" | head -10
+
+      - name: Deploy to web branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dev/_site
+          publish_branch: web
+          force_orphan: true
+
+      - name: Output deployment info
+        run: |
+          echo "📚 Documentation deployed successfully to gh-pages branch!"
+          echo "🔗 GitHub Pages URL will be available at: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          echo "� Make sure GitHub Pages is configured to serve from web branch in repository settings"

@@ -142,8 +142,6 @@ try {
     $markdownlintArgs += "--ignore"
     $markdownlintArgs += "dev\_temp"
     $markdownlintArgs += "--ignore"
-    $markdownlintArgs += "dev\api"
-    $markdownlintArgs += "--ignore"
     $markdownlintArgs += "_site"
     $markdownlintArgs += "--ignore"
     $markdownlintArgs += "bin"
