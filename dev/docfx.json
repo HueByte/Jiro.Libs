@@ -5,9 +5,7 @@
 			"src": [
 				{
 					"src": "../src",
-					"files": [
-						"Jiro.Commands/**/*.csproj"
-					]
+					"files": ["Jiro.Commands/**/*.csproj"]
 				}
 			],
 			"output": "_temp/api",
