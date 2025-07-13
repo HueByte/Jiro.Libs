@@ -7,7 +7,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Jiro.Commands</PackageId>
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
     <Authors>HueByte</Authors>
     <Title>Jiro.Commands</Title>
     <Summary>A powerful command and plugin framework for .NET applications</Summary>
@@ -31,7 +31,7 @@ Features:
     <PackageIcon>Jiro-Icon.png</PackageIcon>
     <PackageTags>commands;plugins;framework;dotnet;csharp;extensibility;cli;command-line</PackageTags>
     <Copyright>Copyright © HueByte 2025</Copyright>
-    <PackageReleaseNotes>https://github.com/HueByte/Jiro.Libs/blob/main/dev/docs/changelog/v$(Version).md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://huebyte.github.io/Jiro.Libs/docs/changelog/index.html</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 

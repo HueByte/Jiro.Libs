@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Jiro.Commands</id>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
     <title>Jiro.Commands</title>
     <authors>HueByte</authors>
     <owners>HueByte</owners>
@@ -28,7 +28,7 @@
       • Full dependency injection support
       • XML documentation for excellent IntelliSense support
     </description>
-    <releaseNotes>https://github.com/HueByte/Jiro.Libs/blob/main/dev/docs/changelog/v3.0.1.md</releaseNotes>
+    <releaseNotes>https://huebyte.github.io/Jiro.Libs/docs/changelog/index.html</releaseNotes>
     <copyright>Copyright © HueByte 2025</copyright>
     <tags>commands plugins framework dotnet csharp extensibility cli command-line</tags>
 
