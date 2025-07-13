@@ -107,4 +107,4 @@ jobs:
         run: |
           echo "📚 Documentation deployed successfully to gh-pages branch!"
           echo "🔗 GitHub Pages URL will be available at: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
-          echo "� Make sure GitHub Pages is configured to serve from web branch in repository settings"
+          echo "ℹ️ Make sure GitHub Pages is configured to serve from web branch in repository settings"
