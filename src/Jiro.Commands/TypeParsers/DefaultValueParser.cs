@@ -20,10 +20,14 @@ namespace Jiro.Commands.TypeParsers
 		public override object? Parse(string? input)
 		{
 			var type = typeof(T);
-			var targetType = Nullable.GetUnderlyingType(type) ?? type;
+			var underlyingType = Nullable.GetUnderlyingType(type);
+			var targetType = underlyingType ?? type;
+			var isNullable = underlyingType is not null;
 
 			if (string.IsNullOrWhiteSpace(input))
 			{
+				if (isNullable)
+					return null;
 				if (targetType.IsValueType)
 					return Activator.CreateInstance(targetType);
 				return null;

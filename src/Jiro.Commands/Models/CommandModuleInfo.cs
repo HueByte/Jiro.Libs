@@ -30,6 +30,9 @@ public class CommandModuleInfo
 	/// <param name="commands">The list of commands to add.</param>
 	public void SetCommands(List<CommandInfo> commands)
 	{
+		if (commands == null)
+			throw new ArgumentNullException(nameof(commands));
+
 		foreach (var command in commands)
 		{
 			Commands.TryAdd(command.Name, command);

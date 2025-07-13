@@ -11,7 +11,7 @@ public class JsonResult : ICommandResult
 	/// <summary>
 	/// Gets or sets the JSON message of the result.
 	/// </summary>
-	public string? Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+	public string? Message { get; set; }
 
 	private JsonResult(string jsonData)
 	{

@@ -78,13 +78,32 @@ namespace Jiro.Commands.Base
 			if (compiledMethod is null) return null;
 
 			// Create wrapper to match expected signature
-			Func<ICommandBase, object?[], Task> descriptor = async (instance, args) =>
+			Func<ICommandBase, object?[], Task<ICommandResult?>> descriptor = async (instance, args) =>
 			{
 				var result = compiledMethod((TBaseInstance)(object)instance, args ?? Array.Empty<object?>());
+
+				// All commands should return Tasks, so handle them accordingly
 				if (result is Task task)
+				{
 					await task;
-				else if (result is not null)
-					await Task.FromResult(result);
+
+					// Use dynamic to access the Result property of Task<T>
+					try
+					{
+						dynamic dynamicTask = task;
+						var taskResult = dynamicTask.Result;
+						if (taskResult is ICommandResult commandResult)
+						{
+							return commandResult;
+						}
+					}
+					catch
+					{
+						// If dynamic access fails, the task likely didn't have a Result property (Task vs Task<T>)
+					}
+				}
+
+				return null;
 			};
 
 			CommandInfo commandInfo = new(

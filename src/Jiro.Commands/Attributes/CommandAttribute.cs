@@ -36,7 +36,7 @@ public class CommandAttribute : Attribute
 	/// <param name="commandType">The type of the command.</param>
 	/// <param name="commandSyntax">The syntax string for the command.</param>
 	/// <param name="commandDescription">The description of the command.</param>
-	public CommandAttribute(string commandName, CommandType commandType = CommandType.Text, string? commandSyntax = "", string commandDescription = "")
+	public CommandAttribute(string commandName, CommandType commandType = CommandType.Text, string? commandSyntax = "", string? commandDescription = "")
 	{
 		CommandName = commandName;
 		CommandType = commandType;

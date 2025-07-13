@@ -1,0 +1,27 @@
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;RunSettings&gt;
+  &lt;RunConfiguration&gt;
+    &lt;MaxCpuCount&gt;0&lt;/MaxCpuCount&gt;
+    &lt;ResultsDirectory&gt;.\TestResults&lt;/ResultsDirectory&gt;
+    &lt;TestSessionTimeout&gt;10000&lt;/TestSessionTimeout&gt;
+  &lt;/RunConfiguration&gt;
+
+  &lt;DataCollectionRunSettings&gt;
+    &lt;DataCollectors&gt;
+      &lt;DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"&gt;
+        &lt;Configuration&gt;
+          &lt;CodeCoverage&gt;
+            &lt;ModulePaths&gt;
+              &lt;Include&gt;
+                &lt;ModulePath&gt;.*Jiro\.Commands\.dll$&lt;/ModulePath&gt;
+              &lt;/Include&gt;
+              &lt;Exclude&gt;
+                &lt;ModulePath&gt;.*Tests.*&lt;/ModulePath&gt;
+              &lt;/Exclude&gt;
+            &lt;/ModulePaths&gt;
+          &lt;/CodeCoverage&gt;
+        &lt;/Configuration&gt;
+      &lt;/DataCollector&gt;
+    &lt;/DataCollectors&gt;
+  &lt;/DataCollectionRunSettings&gt;
+&lt;/RunSettings&gt;

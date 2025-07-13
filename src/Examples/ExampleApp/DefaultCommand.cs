@@ -4,17 +4,18 @@ using Jiro.Commands.Results;
 
 namespace ExampleApp
 {
-    [CommandModule("Default")]
-    public class DefaultCommand : ICommandBase
-    {
-        public DefaultCommand()
-        {
-        }
+	[CommandModule("Default")]
+	public class DefaultCommand : ICommandBase
+	{
+		public DefaultCommand()
+		{
+		}
 
-        [Command("Default")]
-        public Task<ICommandResult> Default()
-        {
-            return Task.FromResult((ICommandResult)TextResult.Create("Default command result"));
-        }
-    }
+		[Command("Default")]
+		public async Task<ICommandResult> Default()
+		{
+			await Task.CompletedTask; // Simulate async operation
+			return TextResult.Create("Default command result");
+		}
+	}
 }

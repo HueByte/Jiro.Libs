@@ -46,7 +46,7 @@ public class CommandInfo
 	/// <summary>
 	/// Gets the delegate that describes how to invoke the command.
 	/// </summary>
-	public Func<ICommandBase, object?[], Task> Descriptor { get; }
+	public Func<ICommandBase, object?[], Task<ICommandResult?>> Descriptor { get; private set; }
 
 	/// <summary>
 	/// Gets the list of parameters for the command.
@@ -64,7 +64,7 @@ public class CommandInfo
 	/// <param name="parameters">The list of parameters for the command.</param>
 	/// <param name="commandSyntax">The syntax string for the command.</param>
 	/// <param name="commandDescription">The description of the command.</param>
-	public CommandInfo(string name, CommandType commandType, bool isAsync, Type container, Func<ICommandBase, object?[], Task> descriptor, IReadOnlyList<ParameterInfo> parameters, string? commandSyntax, string? commandDescription)
+	public CommandInfo(string name, CommandType commandType, bool isAsync, Type container, Func<ICommandBase, object?[], Task<ICommandResult?>> descriptor, IReadOnlyList<ParameterInfo> parameters, string? commandSyntax, string? commandDescription)
 	{
 		Name = name;
 		CommandType = commandType;
@@ -107,25 +107,16 @@ public class CommandInfo
 			return commandResult;
 		}
 
-		if (IsAsync)
-		{
-			var task = Descriptor((ICommandBase)instance, args);
+		// All commands are async now
+		commandResult.Result = await Descriptor((ICommandBase)instance, args);
 
-			if (task is Task<ICommandResult> commandTask)
-			{
-				commandResult.Result = await commandTask;
-			}
-			else
-			{
-				await task;
-				commandResult.Result = TextResult.Create("Command executed successfully");
-			}
-		}
-		else
+		// If no result was returned, provide a default success message
+		if (commandResult.Result == null)
 		{
-			commandResult.Result = (ICommandResult)Descriptor.Invoke((ICommandBase)instance, args);
+			commandResult.Result = TextResult.Create("Command executed successfully");
 		}
 
+		commandResult.IsSuccess = true;
 		return commandResult;
 	}
 
@@ -143,20 +134,19 @@ public class CommandInfo
 		{
 			args = new object?[] { string.Join(' ', tokens) };
 		}
-		else if (Parameters is not null && tokens.Length > 1)
+		else if (Parameters is not null && tokens.Length > 0)
 		{
-			var paramTokens = tokens[1..];
 			args = new object?[Parameters.Count];
 
 			if (args.Length == 1 && Parameters[0]?.ParamType == typeof(string))
 			{
-				args[0] = string.Join(' ', paramTokens);
+				args[0] = string.Join(' ', tokens);
 				return args;
 			}
 
 			for (int i = 0; i < Parameters.Count; i++)
 			{
-				var param = paramTokens.Length > i ? paramTokens[i] : null;
+				var param = tokens.Length > i ? tokens[i] : null;
 				if (Parameters[i]?.Parser is not null)
 					args[i] = Parameters[i]?.Parser?.Parse(param);
 			}

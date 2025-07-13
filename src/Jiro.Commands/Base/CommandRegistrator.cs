@@ -34,7 +34,7 @@ public static class CommandRegistrator
 			var preCommands = ReflectionUtilities.GetPotentialCommands(container);
 			foreach (var methodInfo in preCommands)
 			{
-				var commandInfo = ReflectionUtilities.BuildCommandFromMethodInfo<ICommandBase, Task>(methodInfo);
+				var commandInfo = ReflectionUtilities.BuildCommandFromMethodInfo<ICommandBase, object>(methodInfo);
 				if (commandInfo is not null) commands.Add(commandInfo);
 			}
 
@@ -48,7 +48,7 @@ public static class CommandRegistrator
 
 		CommandsContext globalContainer = new();
 
-		// add default command 
+		// add default command
 		globalContainer.SetDefaultCommand(defaultCommand.ToLower());
 		globalContainer.AddModules(commandModulesInfos);
 		globalContainer.AddCommands(commandModulesInfos
