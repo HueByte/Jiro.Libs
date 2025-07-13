@@ -5,6 +5,7 @@ This project contains comprehensive tests for the Jiro.Commands library, includi
 ## Test Structure
 
 ### Unit Tests (`Unit/`)
+
 - **Attributes/**: Tests for `CommandAttribute` and `CommandModuleAttribute`
 - **Results/**: Tests for all result types (`TextResult`, `JsonResult`, `GraphResult`, `ImageResult`)
 - **TypeParsers/**: Tests for `TypeParser` and `DefaultValueParser<T>`
@@ -13,28 +14,34 @@ This project contains comprehensive tests for the Jiro.Commands library, includi
 - **Base/**: Tests for base classes like `BaseController`
 
 ### Integration Tests (`Integration/`)
+
 - **CommandRegistrationTests**: Tests the command registration system
 - **CommandExecutionTests**: Tests end-to-end command execution
 
 ### Performance Tests (`Performance/`)
+
 - **CommandPerformanceTests**: Tests to ensure commands execute within reasonable time limits
 
 ### Test Helpers (`TestHelpers/`)
+
 - **TestCommandModule**: A sample command module used for testing
 
 ## Running Tests
 
 ### Run All Tests
+
 ```bash
 dotnet test
 ```
 
 ### Run with Coverage
+
 ```bash
 dotnet test --collect:"XPlat Code Coverage" --settings test.runsettings
 ```
 
 ### Run Specific Test Categories
+
 ```bash
 # Unit tests only
 dotnet test --filter "FullyQualifiedName~Unit"
@@ -47,6 +54,7 @@ dotnet test --filter "FullyQualifiedName~Performance"
 ```
 
 ### Run Tests with Detailed Output
+
 ```bash
 dotnet test --logger "console;verbosity=detailed"
 ```
