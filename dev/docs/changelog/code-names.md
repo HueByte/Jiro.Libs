@@ -18,6 +18,7 @@ Jiro.Libs uses Japanese-inspired code names that reflect the spirit and theme of
 | v3.0.0 | Shinpo | 進歩 | Progress & Advancement | Enhanced Tooling & Documentation |
 | v3.0.1 | Shinpo-Kai | 進歩改 | Enhanced Progress | Release Process Automation |
 | v3.0.2 | Kaizen-ka | 改善化 | Improvement Process | Incremental Improvements & Bug Fixes |
+| v3.0.3 | Seishin | 精神 | Spirit & Essence | Core Framework Strengthening |
 
 ## Future Code Name Ideas
 
