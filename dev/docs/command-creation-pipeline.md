@@ -217,7 +217,6 @@ private static TypeParser? GetParser(Type type)
 
 The most critical stage involves compiling method invocation lambdas:
 
-
 ```csharp
 var compiledMethod = CompileMethodInvoker<TBaseInstance, TReturn>(method);
 ```
