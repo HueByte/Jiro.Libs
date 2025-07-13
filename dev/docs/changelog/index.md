@@ -5,7 +5,8 @@ Welcome to the Jiro AI Assistant changelog. This section contains detailed infor
 ## Available Versions
 
 <!-- Newest first -->
-- **[v3.0.3 "Seishin"](v3.0.3.md)** - Patch release focused on core spirit, essence, and reliability
+- **[v3.0.4 "Kakushin"](v3.0.4.md)** - Patch release with result handling, documentation, and validation improvements
+-- **[v3.0.3 "Seishin"](v3.0.3.md)** - Patch release focused on core spirit, essence, and reliability
 - **[v3.0.2 "Kaizen-ka"](v3.0.2.md)** - Patch release with continuous improvement and refinements
 - **[v3.0.1 "Shinpo-Kai"](v3.0.1.md)** - Patch release with enhanced release automation and quality checks
 - **[v3.0.0 "Shinpo"](v3.0.0.md)** - Major release with enhanced tooling, comprehensive documentation, and modernized CI/CD
