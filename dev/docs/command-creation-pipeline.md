@@ -79,14 +79,22 @@ Valid command modules must:
 ### Example Command Module
 
 ```csharp
-[CommandModule]
-public class WeatherController : BaseController
+[CommandModule("PluginCommand")]
+public class PluginCommand : ICommandBase
 {
-    [Command("weather", CommandType.Text, Description = "Get weather information")]
-    public async Task<ICommandResult> GetWeatherAsync(string location)
+    private readonly IPluginService _pluginService;
+    public PluginCommand(IPluginService pluginService)
     {
-        // Command implementation
-        return new TextResult($"Weather in {location}: Sunny, 25°C");
+        _pluginService = pluginService;
+    }
+
+    [Command("PluginTest", commandSyntax: "PluginTest", commandDescription: "Tests plugin command")]
+    public async Task<ICommandResult> PluginTest()
+    {
+        _pluginService.ServiceTest();
+
+        await Task.Delay(1000);
+        return TextResult.Create("Plugin Command Executed");
     }
 }
 ```
@@ -171,7 +179,7 @@ internal static IReadOnlyList<ParameterInfo> GetParameters(MethodInfo methodInfo
     foreach (var parameter in parameters)
     {
         ParameterInfo parameterInfo = new(
-            parameter.ParameterType, 
+            parameter.ParameterType,
             GetParser(parameter.ParameterType)!
         );
         parameterInfos.Add(parameterInfo);
@@ -188,11 +196,10 @@ Each parameter type is assigned a compatible type parser:
 ```csharp
 private static TypeParser? GetParser(Type type)
 {
+    // todo
     return type switch
     {
-        _ => (TypeParser)Activator.CreateInstance(
-            typeof(DefaultValueParser<>).MakeGenericType(new Type[] { type })
-        )!
+        _ => (TypeParser)Activator.CreateInstance(typeof(DefaultValueParser<>).MakeGenericType(new Type[] { type }))!
     };
 }
 ```
@@ -210,6 +217,7 @@ private static TypeParser? GetParser(Type type)
 
 The most critical stage involves compiling method invocation lambdas:
 
+
 ```csharp
 var compiledMethod = CompileMethodInvoker<TBaseInstance, TReturn>(method);
 ```
@@ -225,13 +233,32 @@ var compiledMethod = CompileMethodInvoker<TBaseInstance, TReturn>(method);
 A uniform async wrapper is created for all commands:
 
 ```csharp
-Func<ICommandBase, object?[], Task> descriptor = async (instance, args) =>
+Func<ICommandBase, object?[], Task<ICommandResult?>> descriptor = async (instance, args) =>
 {
     var result = compiledMethod((TBaseInstance)(object)instance, args ?? Array.Empty<object?>());
+
+    // All commands should return Tasks, so handle them accordingly
     if (result is Task task)
+    {
         await task;
-    else if (result is not null)
-        await Task.FromResult(result);
+
+        // Use dynamic to access the Result property of Task<T>
+        try
+        {
+            dynamic dynamicTask = task;
+            var taskResult = dynamicTask.Result;
+            if (taskResult is ICommandResult commandResult)
+            {
+                return commandResult;
+            }
+        }
+        catch
+        {
+            // If dynamic access fails, the task likely didn't have a Result property (Task vs Task<T>)
+        }
+    }
+
+    return null;
 };
 ```
 
@@ -379,14 +406,6 @@ public static class CommandDiagnostics
 ```
 
 ## Future Enhancements
-
-### Planned Improvements
-
-1. **Source Generators**: Compile-time command discovery
-2. **Hot Reload**: Runtime command updates without restart
-3. **Plugin Architecture**: Dynamic command loading/unloading
-4. **Advanced Caching**: Persistent delegate caching
-5. **Performance Analytics**: Built-in performance monitoring
 
 ### Extensibility Points
 
