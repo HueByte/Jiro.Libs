@@ -42,4 +42,26 @@ public class JsonResult : ICommandResult
 
 		return new JsonResult(jsonData);
 	}
+
+	/// <summary>
+	/// Creates a new <see cref="JsonResult"/> instance from the specified JSON string.
+	/// </summary>
+	/// <param name="jsonData">The JSON string to use as the message.</param
+	/// <returns>A new <see cref="JsonResult"/> instance.</returns>
+	/// <exception cref="ArgumentNullException">Thrown if jsonData is null or empty.</exception>
+	/// <exception cref="InvalidOperationException">Thrown if jsonData is not a valid JSON
+	/// string.</exception>
+	/// <remarks>
+	/// This method is useful when you already have a JSON string that you want to use as
+	/// the result message.
+	/// </remarks>
+	public static JsonResult Create(string jsonData)
+	{
+		if (string.IsNullOrEmpty(jsonData))
+		{
+			throw new ArgumentNullException(nameof(jsonData), "JSON data cannot be null or empty");
+		}
+
+		return new JsonResult(jsonData);
+	}
 }
