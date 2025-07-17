@@ -1,3 +1,40 @@
+<p align="center">
+    <img src="dev/assets/JiroBanner.png" style="border-radius: 15px;" alt="Jiro AI Assistant Banner"/>
+</p>
+
+<p align="center">
+    <a href="https://github.com/HueByte/Jiro.Libs/actions/workflows/create-release.yml">
+        <img src="https://img.shields.io/github/actions/workflow/status/HueByte/Jiro.Libs/create-release.yml?branch=main&style=for-the-badge&label=build" alt="Build Status"/>
+    </a>
+    <a href="https://github.com/HueByte/Jiro.Libs/releases/latest">
+        <img src="https://img.shields.io/github/v/release/HueByte/Jiro.Libs?style=for-the-badge&color=blue" alt="Latest Release"/>
+    </a>
+    <a href="https://github.com/HueByte/Jiro.Libs/commits/main">
+        <img src="https://img.shields.io/github/last-commit/HueByte/Jiro.Libs?style=for-the-badge&color=orange" alt="Last Commit"/>
+    </a>
+    <a href="https://github.com/HueByte/Jiro.Libs/stargazers">
+        <img src="https://img.shields.io/github/stars/HueByte/Jiro.Libs?style=for-the-badge&color=yellow" alt="GitHub Stars"/>
+    </a>
+    <a href="https://github.com/HueByte/Jiro.Libs/issues">
+        <img src="https://img.shields.io/github/issues/HueByte/Jiro.Libs?style=for-the-badge&color=red" alt="GitHub Issues"/>
+    </a>
+    <a href="https://github.com/HueByte/Jiro.Libs/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/HueByte/Jiro.Libs?style=for-the-badge&color=green" alt="License"/>
+    </a>
+    <a href="https://dotnet.microsoft.com/download">
+        <img src="https://img.shields.io/badge/.NET-9.0-purple?style=for-the-badge" alt=".NET 9.0"/>
+    </a>
+    <a href="https://github.com/HueByte/Jiro.Libs">
+        <img src="https://img.shields.io/github/languages/code-size/HueByte/Jiro.Libs?style=for-the-badge&color=purple" alt="Code Size"/>
+    </a>
+    <a href="https://www.nuget.org/packages/Jiro.Commands/">
+        <img src="https://img.shields.io/nuget/v/Jiro.Commands.svg?style=for-the-badge&color=blue" alt="NuGet Version"/>
+    </a>
+    <a href="https://www.nuget.org/packages/Jiro.Commands/">
+        <img src="https://img.shields.io/nuget/dt/Jiro.Commands.svg?style=for-the-badge&color=green" alt="NuGet Downloads"/>
+    </a>
+</p>
+
 # Jiro.Commands
 
 > **A flexible command and plugin framework for [Jiro](https://github.com/HueByte/Jiro)**
@@ -21,10 +58,16 @@ Jiro.Commands provides a robust, extensible system for building plugins and runt
 
 ### Installation
 
-Add the Jiro.Commands project or NuGet package to your solution.
+Install via NuGet Package Manager:
 
-```cs
-# Coming soon: NuGet package
+```bash
+dotnet add package Jiro.Commands
+```
+
+Or via Package Manager Console:
+
+```powershell
+Install-Package Jiro.Commands
 ```
 
 ---
@@ -114,7 +157,7 @@ public class PluginCommand : ICommandBase
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Please open an issue or pull request on [GitHub](https://github.com/HueByte/Jiro).
+Contributions, issues, and feature requests are welcome! Please open an issue or pull request on [GitHub](https://github.com/HueByte/Jiro.Libs).
 
 ### Development Setup
 
@@ -128,7 +171,6 @@ This project uses [EditorConfig](https://editorconfig.org/) to maintain consiste
 
 - Run `dotnet format` before committing to ensure code follows the project's style guidelines
 - The CI pipeline will verify that code formatting is consistent
-- See [docs/EDITORCONFIG.md](docs/EDITORCONFIG.md) for detailed information about coding standards
 
 ---
 
