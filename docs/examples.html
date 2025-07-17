@@ -1,0 +1,981 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Jiro.Libs Examples | Jiro.Libs Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Jiro.Libs Examples | Jiro.Libs Documentation ">
+      
+      
+      <link rel="icon" href="../assets/Jiro-Icon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../assets/Jiro-Icon.png" alt="Jiro.Libs">
+            Jiro.Libs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="jirolibs-examples">Jiro.Libs Examples</h1>
+
+<p>This guide provides comprehensive examples showing how to use Jiro.Libs to build command-driven applications and plugins.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#basic-command-module">Basic Command Module</a></li>
+<li><a href="#advanced-command-examples">Advanced Command Examples</a></li>
+<li><a href="#plugin-development">Plugin Development</a></li>
+<li><a href="#aspnet-core-integration">ASP.NET Core Integration</a></li>
+<li><a href="#custom-controllers">Custom Controllers</a></li>
+<li><a href="#type-parsing-examples">Type Parsing Examples</a></li>
+<li><a href="#real-world-examples">Real-World Examples</a></li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="installation">Installation</h3>
+<p>First, install the Jiro.Commands NuGet package:</p>
+<pre><code class="lang-bash">dotnet add package Jiro.Commands
+</code></pre>
+<h3 id="basic-setup">Basic Setup</h3>
+<p>Here's a minimal setup for an ASP.NET Core application with Jiro.Commands:</p>
+<pre><code class="lang-csharp">using Jiro.Commands.Base;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services
+builder.Services.AddControllers();
+builder.Services.RegisterCommands(&quot;default&quot;); // Register with default command
+
+var app = builder.Build();
+
+// Configure pipeline
+app.UseRouting();
+app.MapControllers();
+
+app.Run();
+</code></pre>
+<h2 id="basic-command-module">Basic Command Module</h2>
+<h3 id="simple-text-command">Simple Text Command</h3>
+<p>Create a basic command module that responds with text:</p>
+<pre><code class="lang-csharp">using Jiro.Commands;
+using Jiro.Commands.Attributes;
+using Jiro.Commands.Results;
+
+[CommandModule(&quot;Greetings&quot;)]
+public class GreetingCommands : ICommandBase
+{
+    [Command(&quot;hello&quot;, CommandType.Text, &quot;hello [name]&quot;, &quot;Greets a person&quot;)]
+    public Task&lt;ICommandResult&gt; SayHello(string name = &quot;World&quot;)
+    {
+        var message = $&quot;Hello, {name}!&quot;;
+        return Task.FromResult((ICommandResult)TextResult.Create(message));
+    }
+
+    [Command(&quot;goodbye&quot;, CommandType.Text, &quot;goodbye [name]&quot;, &quot;Says goodbye to a person&quot;)]
+    public Task&lt;ICommandResult&gt; SayGoodbye(string name = &quot;friend&quot;)
+    {
+        var message = $&quot;Goodbye, {name}! See you later.&quot;;
+        return Task.FromResult((ICommandResult)TextResult.Create(message));
+    }
+}
+</code></pre>
+<h3 id="json-response-command">JSON Response Command</h3>
+<p>Return structured data as JSON:</p>
+<pre><code class="lang-csharp">using Jiro.Commands;
+using Jiro.Commands.Attributes;
+using Jiro.Commands.Results;
+
+[CommandModule(&quot;Data&quot;)]
+public class DataCommands : ICommandBase
+{
+    [Command(&quot;userinfo&quot;, CommandType.Json, &quot;userinfo &lt;userId&gt;&quot;, &quot;Gets user information&quot;)]
+    public Task&lt;ICommandResult&gt; GetUserInfo(int userId)
+    {
+        var userData = new
+        {
+            Id = userId,
+            Name = $&quot;User{userId}&quot;,
+            Email = $&quot;user{userId}@example.com&quot;,
+            CreatedAt = DateTime.UtcNow.AddDays(-userId * 10)
+        };
+
+        return Task.FromResult((ICommandResult)JsonResult.Create(userData));
+    }
+
+    [Command(&quot;stats&quot;, CommandType.Json, &quot;stats&quot;, &quot;Gets application statistics&quot;)]
+    public Task&lt;ICommandResult&gt; GetStatistics()
+    {
+        var stats = new
+        {
+            TotalUsers = 1250,
+            ActiveSessions = 45,
+            LastUpdate = DateTime.UtcNow,
+            Version = &quot;3.0.0&quot;
+        };
+
+        return Task.FromResult((ICommandResult)JsonResult.Create(stats));
+    }
+}
+</code></pre>
+<h2 id="advanced-command-examples">Advanced Command Examples</h2>
+<h3 id="async-operations-with-external-services">Async Operations with External Services</h3>
+<pre><code class="lang-csharp">using Jiro.Commands;
+using Jiro.Commands.Attributes;
+using Jiro.Commands.Results;
+
+[CommandModule(&quot;Weather&quot;)]
+public class WeatherCommands : ICommandBase
+{
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger&lt;WeatherCommands&gt; _logger;
+
+    public WeatherCommands(IHttpClientFactory httpClientFactory, ILogger&lt;WeatherCommands&gt; logger)
+    {
+        _httpClientFactory = httpClientFactory;
+        _logger = logger;
+    }
+
+    [Command(&quot;weather&quot;, CommandType.Json, &quot;weather &lt;city&gt;&quot;, &quot;Gets weather information for a city&quot;)]
+    public async Task&lt;ICommandResult&gt; GetWeather(string city)
+    {
+        try
+        {
+            _logger.LogInformation(&quot;Fetching weather for {City}&quot;, city);
+            
+            // Simulate API call
+            await Task.Delay(500); // Simulate network delay
+            
+            var weatherData = new
+            {
+                City = city,
+                Temperature = Random.Shared.Next(-10, 35),
+                Condition = new[] { &quot;Sunny&quot;, &quot;Cloudy&quot;, &quot;Rainy&quot;, &quot;Snowy&quot; }[Random.Shared.Next(4)],
+                Humidity = Random.Shared.Next(30, 90),
+                Timestamp = DateTime.UtcNow
+            };
+
+            return JsonResult.Create(weatherData);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, &quot;Error fetching weather for {City}&quot;, city);
+            return TextResult.Create($&quot;Error: Could not fetch weather for {city}&quot;);
+        }
+    }
+
+    [Command(&quot;forecast&quot;, CommandType.Json, &quot;forecast &lt;city&gt; [days]&quot;, &quot;Gets weather forecast&quot;)]
+    public async Task&lt;ICommandResult&gt; GetForecast(string city, int days = 5)
+    {
+        if (days &lt; 1 || days &gt; 14)
+        {
+            return TextResult.Create(&quot;Error: Days must be between 1 and 14&quot;);
+        }
+
+        await Task.Delay(300); // Simulate API call
+
+        var forecast = Enumerable.Range(0, days)
+            .Select(i =&gt; new
+            {
+                Date = DateTime.UtcNow.AddDays(i).ToString(&quot;yyyy-MM-dd&quot;),
+                Temperature = Random.Shared.Next(-5, 30),
+                Condition = new[] { &quot;Sunny&quot;, &quot;Cloudy&quot;, &quot;Rainy&quot; }[Random.Shared.Next(3)]
+            })
+            .ToList();
+
+        var result = new
+        {
+            City = city,
+            Days = days,
+            Forecast = forecast
+        };
+
+        return JsonResult.Create(result);
+    }
+}
+</code></pre>
+<h3 id="file-operations-command">File Operations Command</h3>
+<pre><code class="lang-csharp">using Jiro.Commands;
+using Jiro.Commands.Attributes;
+using Jiro.Commands.Results;
+
+[CommandModule(&quot;Files&quot;)]
+public class FileCommands : ICommandBase
+{
+    private readonly IWebHostEnvironment _environment;
+
+    public FileCommands(IWebHostEnvironment environment)
+    {
+        _environment = environment;
+    }
+
+    [Command(&quot;listfiles&quot;, CommandType.Json, &quot;listfiles [directory]&quot;, &quot;Lists files in a directory&quot;)]
+    public Task&lt;ICommandResult&gt; ListFiles(string directory = &quot;&quot;)
+    {
+        try
+        {
+            var targetPath = string.IsNullOrWhiteSpace(directory) 
+                ? _environment.ContentRootPath 
+                : Path.Combine(_environment.ContentRootPath, directory);
+
+            if (!Directory.Exists(targetPath))
+            {
+                return Task.FromResult((ICommandResult)TextResult.Create($&quot;Directory not found: {directory}&quot;));
+            }
+
+            var files = Directory.GetFiles(targetPath)
+                .Select(f =&gt; new
+                {
+                    Name = Path.GetFileName(f),
+                    Size = new FileInfo(f).Length,
+                    Modified = File.GetLastWriteTime(f)
+                })
+                .ToList();
+
+            var result = new
+            {
+                Directory = directory,
+                FileCount = files.Count,
+                Files = files
+            };
+
+            return Task.FromResult((ICommandResult)JsonResult.Create(result));
+        }
+        catch (Exception ex)
+        {
+            return Task.FromResult((ICommandResult)TextResult.Create($&quot;Error: {ex.Message}&quot;));
+        }
+    }
+
+    [Command(&quot;fileinfo&quot;, CommandType.Json, &quot;fileinfo &lt;filename&gt;&quot;, &quot;Gets file information&quot;)]
+    public Task&lt;ICommandResult&gt; GetFileInfo(string filename)
+    {
+        try
+        {
+            var filePath = Path.Combine(_environment.ContentRootPath, filename);
+            
+            if (!File.Exists(filePath))
+            {
+                return Task.FromResult((ICommandResult)TextResult.Create($&quot;File not found: {filename}&quot;));
+            }
+
+            var fileInfo = new FileInfo(filePath);
+            var result = new
+            {
+                Name = fileInfo.Name,
+                FullPath = fileInfo.FullName,
+                Size = fileInfo.Length,
+                Created = fileInfo.CreationTime,
+                Modified = fileInfo.LastWriteTime,
+                Extension = fileInfo.Extension,
+                IsReadOnly = fileInfo.IsReadOnly
+            };
+
+            return Task.FromResult((ICommandResult)JsonResult.Create(result));
+        }
+        catch (Exception ex)
+        {
+            return Task.FromResult((ICommandResult)TextResult.Create($&quot;Error: {ex.Message}&quot;));
+        }
+    }
+}
+</code></pre>
+<h2 id="plugin-development">Plugin Development</h2>
+<h3 id="creating-a-plugin">Creating a Plugin</h3>
+<p>Create a complete plugin with configuration, services, and commands:</p>
+<p><strong>1. Plugin Interface Implementation (<code>PluginMain.cs</code>)</strong></p>
+<pre><code class="lang-csharp">using Jiro.Commands.Base;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace MyCustomPlugin;
+
+public class PluginMain : IPlugin
+{
+    public string PluginName { get; } = &quot;MyCustomPlugin&quot;;
+
+    public void RegisterAppConfigs(ConfigurationManager builder)
+    {
+        // Add plugin-specific configuration
+        builder.AddJsonFile(&quot;mycustomplugin.json&quot;, optional: true, reloadOnChange: true);
+    }
+
+    public void RegisterAppExtensions(IApplicationBuilder app)
+    {
+        // Add custom middleware
+        app.UseCustomPluginMiddleware();
+    }
+
+    public void RegisterServices(IServiceCollection services)
+    {
+        // Register plugin services
+        services.AddScoped&lt;IMyPluginService, MyPluginService&gt;();
+        services.AddSingleton&lt;IPluginCache, PluginCache&gt;();
+    }
+}
+</code></pre>
+<p><strong>2. Plugin Service (<code>MyPluginService.cs</code>)</strong></p>
+<pre><code class="lang-csharp">public interface IMyPluginService
+{
+    Task&lt;string&gt; ProcessDataAsync(string input);
+    Task&lt;List&lt;string&gt;&gt; GetCachedItemsAsync();
+}
+
+public class MyPluginService : IMyPluginService
+{
+    private readonly ILogger&lt;MyPluginService&gt; _logger;
+    private readonly IPluginCache _cache;
+
+    public MyPluginService(ILogger&lt;MyPluginService&gt; logger, IPluginCache cache)
+    {
+        _logger = logger;
+        _cache = cache;
+    }
+
+    public async Task&lt;string&gt; ProcessDataAsync(string input)
+    {
+        _logger.LogInformation(&quot;Processing data: {Input}&quot;, input);
+        
+        // Simulate processing
+        await Task.Delay(100);
+        
+        var result = $&quot;Processed: {input.ToUpper()}&quot;;
+        await _cache.SetAsync($&quot;processed_{input}&quot;, result);
+        
+        return result;
+    }
+
+    public async Task&lt;List&lt;string&gt;&gt; GetCachedItemsAsync()
+    {
+        return await _cache.GetAllKeysAsync();
+    }
+}
+</code></pre>
+<p><strong>3. Plugin Commands (<code>PluginCommands.cs</code>)</strong></p>
+<pre><code class="lang-csharp">using Jiro.Commands;
+using Jiro.Commands.Attributes;
+using Jiro.Commands.Results;
+
+[CommandModule(&quot;MyPlugin&quot;)]
+public class PluginCommands : ICommandBase
+{
+    private readonly IMyPluginService _pluginService;
+    private readonly ILogger&lt;PluginCommands&gt; _logger;
+
+    public PluginCommands(IMyPluginService pluginService, ILogger&lt;PluginCommands&gt; logger)
+    {
+        _pluginService = pluginService;
+        _logger = logger;
+    }
+
+    [Command(&quot;process&quot;, CommandType.Text, &quot;process &lt;input&gt;&quot;, &quot;Processes input data&quot;)]
+    public async Task&lt;ICommandResult&gt; ProcessData(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return TextResult.Create(&quot;Error: Input cannot be empty&quot;);
+        }
+
+        try
+        {
+            var result = await _pluginService.ProcessDataAsync(input);
+            return TextResult.Create(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, &quot;Error processing data&quot;);
+            return TextResult.Create(&quot;Error: Failed to process data&quot;);
+        }
+    }
+
+    [Command(&quot;cache&quot;, CommandType.Json, &quot;cache&quot;, &quot;Gets cached items&quot;)]
+    public async Task&lt;ICommandResult&gt; GetCachedItems()
+    {
+        try
+        {
+            var items = await _pluginService.GetCachedItemsAsync();
+            return JsonResult.Create(new { CachedItems = items, Count = items.Count });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, &quot;Error retrieving cached items&quot;);
+            return TextResult.Create(&quot;Error: Failed to retrieve cached items&quot;);
+        }
+    }
+
+    [Command(&quot;status&quot;, CommandType.Json, &quot;status&quot;, &quot;Gets plugin status&quot;)]
+    public Task&lt;ICommandResult&gt; GetStatus()
+    {
+        var status = new
+        {
+            PluginName = &quot;MyCustomPlugin&quot;,
+            Version = &quot;1.0.0&quot;,
+            Status = &quot;Active&quot;,
+            Uptime = DateTime.UtcNow.ToString(&quot;O&quot;),
+            ServicesRegistered = 2
+        };
+
+        return Task.FromResult((ICommandResult)JsonResult.Create(status));
+    }
+}
+</code></pre>
+<h2 id="aspnet-core-integration">ASP.NET Core Integration</h2>
+<h3 id="complete-programcs-setup">Complete Program.cs Setup</h3>
+<pre><code class="lang-csharp">using MyApp.Commands;
+using Jiro.Commands.Base;
+using Serilog;
+
+// Configure logging
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File(&quot;logs/app-.txt&quot;, rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Add logging
+    builder.Host.UseSerilog();
+
+    // Add services
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddHttpClient();
+
+    // Plugin Manager Setup
+    var configRef = builder.Configuration;
+    var modulePaths = configRef.GetSection(&quot;Modules&quot;).Get&lt;string[]&gt;();
+    
+    var logger = Log.ForContext&lt;Program&gt;();
+    PluginManager pluginManager = new(builder.Services, configRef, logger);
+
+    // Build and load plugins in development
+    if (builder.Environment.IsDevelopment())
+    {
+        pluginManager.BuildDevModules(modulePaths);
+    }
+
+    // Load plugin assemblies
+    pluginManager.LoadModuleAssemblies();
+    pluginManager.LoadModuleControllers();
+    pluginManager.RegisterModuleServices();
+
+    // Register commands with default command
+    builder.Services.RegisterCommands(&quot;help&quot;);
+
+    var app = builder.Build();
+
+    // Register plugin app extensions
+    pluginManager.RegisterAppExtensions(app);
+
+    // Configure the HTTP request pipeline
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+
+    // Add custom endpoint for command execution
+    app.MapPost(&quot;/api/commands/execute&quot;, async (ExecuteCommandRequest request, IServiceProvider serviceProvider) =&gt;
+    {
+        // Command execution logic here
+        return Results.Ok();
+    });
+
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, &quot;Application terminated unexpectedly&quot;);
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+</code></pre>
+<h3 id="configuration-appsettingsjson">Configuration (appsettings.json)</h3>
+<pre><code class="lang-json">{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft.AspNetCore&quot;: &quot;Warning&quot;
+    }
+  },
+  &quot;Modules&quot;: [
+    &quot;ExamplePlugin&quot;,
+    &quot;WeatherPlugin&quot;,
+    &quot;FileManagerPlugin&quot;
+  ],
+  &quot;AllowedHosts&quot;: &quot;*&quot;
+}
+</code></pre>
+<h2 id="custom-controllers">Custom Controllers</h2>
+<h3 id="plugin-controller-with-api-endpoints">Plugin Controller with API Endpoints</h3>
+<pre><code class="lang-csharp">using Jiro.Commands.Base;
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route(&quot;api/[controller]&quot;)]
+public class PluginController : BaseController
+{
+    private readonly IMyPluginService _pluginService;
+
+    public PluginController(IMyPluginService pluginService)
+    {
+        _pluginService = pluginService;
+    }
+
+    [HttpGet(&quot;test&quot;)]
+    public IActionResult PluginTest()
+    {
+        return Ok(new { Message = &quot;Plugin Controller Executed&quot;, Timestamp = DateTime.UtcNow });
+    }
+
+    [HttpPost(&quot;process&quot;)]
+    public async Task&lt;IActionResult&gt; ProcessData([FromBody] ProcessDataRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Input))
+        {
+            return BadRequest(&quot;Input is required&quot;);
+        }
+
+        var result = await _pluginService.ProcessDataAsync(request.Input);
+        return Ok(new { Result = result });
+    }
+
+    [HttpGet(&quot;health&quot;)]
+    public IActionResult HealthCheck()
+    {
+        return Ok(new 
+        { 
+            Status = &quot;Healthy&quot;,
+            Plugin = &quot;MyCustomPlugin&quot;,
+            Timestamp = DateTime.UtcNow 
+        });
+    }
+}
+
+public class ProcessDataRequest
+{
+    public string Input { get; set; } = string.Empty;
+}
+</code></pre>
+<h2 id="type-parsing-examples">Type Parsing Examples</h2>
+<h3 id="custom-parameter-types">Custom Parameter Types</h3>
+<pre><code class="lang-csharp">[CommandModule(&quot;TypeExamples&quot;)]
+public class TypeExampleCommands : ICommandBase
+{
+    [Command(&quot;calculate&quot;, CommandType.Text, &quot;calculate &lt;operation&gt; &lt;x&gt; &lt;y&gt;&quot;, &quot;Performs calculations&quot;)]
+    public Task&lt;ICommandResult&gt; Calculate(string operation, double x, double y)
+    {
+        var result = operation.ToLower() switch
+        {
+            &quot;add&quot; =&gt; x + y,
+            &quot;subtract&quot; =&gt; x - y,
+            &quot;multiply&quot; =&gt; x * y,
+            &quot;divide&quot; =&gt; y != 0 ? x / y : double.NaN,
+            _ =&gt; double.NaN
+        };
+
+        var message = double.IsNaN(result) 
+            ? $&quot;Invalid operation: {operation}&quot; 
+            : $&quot;{operation} {x} {y} = {result}&quot;;
+
+        return Task.FromResult((ICommandResult)TextResult.Create(message));
+    }
+
+    [Command(&quot;dateinfo&quot;, CommandType.Json, &quot;dateinfo &lt;date&gt;&quot;, &quot;Gets date information&quot;)]
+    public Task&lt;ICommandResult&gt; GetDateInfo(DateTime date)
+    {
+        var info = new
+        {
+            Date = date.ToString(&quot;yyyy-MM-dd&quot;),
+            DayOfWeek = date.DayOfWeek.ToString(),
+            DayOfYear = date.DayOfYear,
+            WeekOfYear = GetWeekOfYear(date),
+            IsWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday,
+            Quarter = (date.Month - 1) / 3 + 1
+        };
+
+        return Task.FromResult((ICommandResult)JsonResult.Create(info));
+    }
+
+    [Command(&quot;search&quot;, CommandType.Json, &quot;search &lt;query&gt; [maxResults]&quot;, &quot;Searches with optional limit&quot;)]
+    public Task&lt;ICommandResult&gt; Search(string query, int maxResults = 10)
+    {
+        // Simulate search results
+        var results = Enumerable.Range(1, Math.Min(maxResults, 50))
+            .Select(i =&gt; new
+            {
+                Id = i,
+                Title = $&quot;Result {i} for '{query}'&quot;,
+                Score = Random.Shared.NextDouble(),
+                Url = $&quot;https://example.com/result{i}&quot;
+            })
+            .OrderByDescending(r =&gt; r.Score)
+            .ToList();
+
+        var response = new
+        {
+            Query = query,
+            MaxResults = maxResults,
+            TotalFound = results.Count,
+            Results = results
+        };
+
+        return Task.FromResult((ICommandResult)JsonResult.Create(response));
+    }
+
+    private static int GetWeekOfYear(DateTime date)
+    {
+        var culture = System.Globalization.CultureInfo.CurrentCulture;
+        return culture.Calendar.GetWeekOfYear(date, culture.DateTimeFormat.CalendarWeekRule, culture.DateTimeFormat.FirstDayOfWeek);
+    }
+}
+</code></pre>
+<h3 id="boolean-and-array-parameters">Boolean and Array Parameters</h3>
+<pre><code class="lang-csharp">[CommandModule(&quot;Advanced&quot;)]
+public class AdvancedCommands : ICommandBase
+{
+    [Command(&quot;backup&quot;, CommandType.Text, &quot;backup &lt;path&gt; [compress]&quot;, &quot;Creates a backup&quot;)]
+    public Task&lt;ICommandResult&gt; CreateBackup(string path, bool compress = false)
+    {
+        // Simulate backup operation
+        var message = compress 
+            ? $&quot;Creating compressed backup of {path}...&quot; 
+            : $&quot;Creating backup of {path}...&quot;;
+
+        return Task.FromResult((ICommandResult)TextResult.Create(message));
+    }
+
+    [Command(&quot;average&quot;, CommandType.Text, &quot;average &lt;numbers...&gt;&quot;, &quot;Calculates average of numbers&quot;)]
+    public Task&lt;ICommandResult&gt; CalculateAverage(params double[] numbers)
+    {
+        if (numbers.Length == 0)
+        {
+            return Task.FromResult((ICommandResult)TextResult.Create(&quot;Error: No numbers provided&quot;));
+        }
+
+        var average = numbers.Average();
+        var message = $&quot;Average of [{string.Join(&quot;, &quot;, numbers)}] = {average:F2}&quot;;
+
+        return Task.FromResult((ICommandResult)TextResult.Create(message));
+    }
+}
+</code></pre>
+<h2 id="real-world-examples">Real-World Examples</h2>
+<h3 id="database-operations-command">Database Operations Command</h3>
+<pre><code class="lang-csharp">[CommandModule(&quot;Database&quot;)]
+public class DatabaseCommands : ICommandBase
+{
+    private readonly IServiceScopeFactory _scopeFactory;
+    private readonly ILogger&lt;DatabaseCommands&gt; _logger;
+
+    public DatabaseCommands(IServiceScopeFactory scopeFactory, ILogger&lt;DatabaseCommands&gt; logger)
+    {
+        _scopeFactory = scopeFactory;
+        _logger = logger;
+    }
+
+    [Command(&quot;dbstatus&quot;, CommandType.Json, &quot;dbstatus&quot;, &quot;Gets database status&quot;)]
+    public async Task&lt;ICommandResult&gt; GetDatabaseStatus()
+    {
+        try
+        {
+            using var scope = _scopeFactory.CreateScope();
+            // var dbContext = scope.ServiceProvider.GetRequiredService&lt;ApplicationDbContext&gt;();
+            
+            // Simulate database check
+            await Task.Delay(100);
+
+            var status = new
+            {
+                Status = &quot;Connected&quot;,
+                LastCheck = DateTime.UtcNow,
+                // UserCount = await dbContext.Users.CountAsync(),
+                // ActiveConnections = dbContext.Database.GetDbConnection().State.ToString()
+                UserCount = 1250,
+                ActiveConnections = &quot;Open&quot;
+            };
+
+            return JsonResult.Create(status);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, &quot;Error checking database status&quot;);
+            return TextResult.Create(&quot;Error: Database connection failed&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="system-information-command">System Information Command</h3>
+<pre><code class="lang-csharp">[CommandModule(&quot;System&quot;)]
+public class SystemCommands : ICommandBase
+{
+    [Command(&quot;sysinfo&quot;, CommandType.Json, &quot;sysinfo&quot;, &quot;Gets system information&quot;)]
+    public Task&lt;ICommandResult&gt; GetSystemInfo()
+    {
+        var sysInfo = new
+        {
+            Environment = new
+            {
+                MachineName = Environment.MachineName,
+                OSVersion = Environment.OSVersion.ToString(),
+                ProcessorCount = Environment.ProcessorCount,
+                Is64BitOS = Environment.Is64BitOperatingSystem,
+                WorkingSet = Environment.WorkingSet,
+                Version = Environment.Version.ToString()
+            },
+            Process = new
+            {
+                Id = Environment.ProcessId,
+                StartTime = DateTime.UtcNow, // Approximate
+                WorkingMemory = GC.GetTotalMemory(false),
+                ThreadCount = System.Diagnostics.Process.GetCurrentProcess().Threads.Count
+            },
+            Runtime = new
+            {
+                FrameworkDescription = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,
+                RuntimeIdentifier = System.Runtime.InteropServices.RuntimeInformation.RuntimeIdentifier,
+                Architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString()
+            }
+        };
+
+        return Task.FromResult((ICommandResult)JsonResult.Create(sysInfo));
+    }
+
+    [Command(&quot;gc&quot;, CommandType.Text, &quot;gc&quot;, &quot;Triggers garbage collection&quot;)]
+    public Task&lt;ICommandResult&gt; TriggerGarbageCollection()
+    {
+        var beforeMemory = GC.GetTotalMemory(false);
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        var afterMemory = GC.GetTotalMemory(true);
+        
+        var freed = beforeMemory - afterMemory;
+        var message = $&quot;Garbage collection completed. Freed: {freed:N0} bytes&quot;;
+
+        return Task.FromResult((ICommandResult)TextResult.Create(message));
+    }
+}
+</code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="error-handling">Error Handling</h3>
+<pre><code class="lang-csharp">[CommandModule(&quot;ErrorHandling&quot;)]
+public class ErrorHandlingCommands : ICommandBase
+{
+    private readonly ILogger&lt;ErrorHandlingCommands&gt; _logger;
+
+    public ErrorHandlingCommands(ILogger&lt;ErrorHandlingCommands&gt; logger)
+    {
+        _logger = logger;
+    }
+
+    [Command(&quot;safeoperation&quot;, CommandType.Text, &quot;safeoperation &lt;input&gt;&quot;, &quot;Demonstrates safe error handling&quot;)]
+    public async Task&lt;ICommandResult&gt; SafeOperation(string input)
+    {
+        try
+        {
+            // Validate input
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return TextResult.Create(&quot;Error: Input cannot be empty&quot;);
+            }
+
+            if (input.Length &gt; 100)
+            {
+                return TextResult.Create(&quot;Error: Input too long (max 100 characters)&quot;);
+            }
+
+            // Simulate operation that might fail
+            if (input.ToLower() == &quot;error&quot;)
+            {
+                throw new InvalidOperationException(&quot;Simulated error&quot;);
+            }
+
+            await Task.Delay(100); // Simulate work
+
+            return TextResult.Create($&quot;Operation completed successfully for: {input}&quot;);
+        }
+        catch (ArgumentException ex)
+        {
+            _logger.LogWarning(ex, &quot;Invalid argument provided: {Input}&quot;, input);
+            return TextResult.Create($&quot;Error: Invalid argument - {ex.Message}&quot;);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, &quot;Unexpected error in SafeOperation with input: {Input}&quot;, input);
+            return TextResult.Create(&quot;Error: An unexpected error occurred&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="performance-monitoring">Performance Monitoring</h3>
+<pre><code class="lang-csharp">[CommandModule(&quot;Performance&quot;)]
+public class PerformanceCommands : ICommandBase
+{
+    private readonly ILogger&lt;PerformanceCommands&gt; _logger;
+
+    public PerformanceCommands(ILogger&lt;PerformanceCommands&gt; logger)
+    {
+        _logger = logger;
+    }
+
+    [Command(&quot;benchmark&quot;, CommandType.Json, &quot;benchmark &lt;iterations&gt;&quot;, &quot;Runs a simple benchmark&quot;)]
+    public async Task&lt;ICommandResult&gt; RunBenchmark(int iterations = 1000)
+    {
+        if (iterations &lt; 1 || iterations &gt; 1000000)
+        {
+            return TextResult.Create(&quot;Error: Iterations must be between 1 and 1,000,000&quot;);
+        }
+
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+        
+        // Simple CPU-bound operation
+        var sum = 0L;
+        for (int i = 0; i &lt; iterations; i++)
+        {
+            sum += i * i;
+            if (i % 10000 == 0)
+            {
+                await Task.Yield(); // Allow other tasks to run
+            }
+        }
+
+        stopwatch.Stop();
+
+        var result = new
+        {
+            Iterations = iterations,
+            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
+            IterationsPerSecond = iterations / (stopwatch.ElapsedMilliseconds / 1000.0),
+            Result = sum
+        };
+
+        _logger.LogInformation(&quot;Benchmark completed: {Iterations} iterations in {ElapsedMs}ms&quot;, 
+            iterations, stopwatch.ElapsedMilliseconds);
+
+        return JsonResult.Create(result);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>This examples guide covers:</p>
+<ol>
+<li><strong>Basic Setup</strong>: How to configure Jiro.Commands in an ASP.NET Core application</li>
+<li><strong>Command Creation</strong>: From simple text responses to complex async operations</li>
+<li><strong>Plugin Development</strong>: Complete plugin architecture with services and controllers</li>
+<li><strong>Type Handling</strong>: Working with different parameter types and validation</li>
+<li><strong>Real-World Scenarios</strong>: Database operations, system monitoring, and error handling</li>
+<li><strong>Best Practices</strong>: Error handling, logging, and performance considerations</li>
+</ol>
+<p>Each example is self-contained and demonstrates specific features of the Jiro.Commands framework. You can use these as starting points for your own command modules and plugins.</p>
+<p>For more detailed information, see:</p>
+<ul>
+<li><a href="command-creation-pipeline.html">Command Creation Pipeline</a></li>
+<li><a href="compiled-lambdas.html">Compiled Lambdas</a></li>
+<li><a href="../api/">API Reference</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <div class="footer-custom"><div class="footer-inner d-flex justify-content-between align-items-center"><div class="footer-text">Made with <strong>💖</strong> By HueByte</div><div class="footer-links"><a href="https://github.com/HueByte/Jiro.Libs" class="footer-link" target="_blank"><i class="fab fa-github"></i>GitHub</a><a href="#" class="footer-link scroll-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i>Top</a></div></div></div><script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

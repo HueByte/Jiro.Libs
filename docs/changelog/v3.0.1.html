@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Jiro.Libs v3.0.1 &quot;Shinpo-Kai&quot; | Jiro.Libs Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Jiro.Libs v3.0.1 &quot;Shinpo-Kai&quot; | Jiro.Libs Documentation ">
+      
+      
+      <link rel="icon" href="../../assets/Jiro-Icon.png">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../assets/Jiro-Icon.png" alt="Jiro.Libs">
+            Jiro.Libs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="jirolibs-v301-shinpo-kai">Jiro.Libs v3.0.1 &quot;Shinpo-Kai&quot;</h1>
+
+<p><strong>Release Date:</strong> 2025/07/13<br>
+<strong>Release Type:</strong> Patch Release<br>
+<strong>Branch:</strong> main<br>
+<strong>Code Name:</strong> Shinpo-Kai (進歩改) - &quot;Enhanced Progress&quot;</p>
+<h2 id="-overview">🎉 Overview</h2>
+<p>This is a <strong>patch release</strong> of Jiro.Libs that significantly enhances the release automation process with comprehensive quality checks and improved developer experience. The release focuses on tooling improvements and process refinements that make releases more reliable and consistent.</p>
+<h2 id="-features-added">✨ Features Added</h2>
+<h3 id="enhanced-release-automation">Enhanced Release Automation</h3>
+<h4 id="quality-first-release-process"><strong>Quality-First Release Process</strong></h4>
+<ul>
+<li><strong>Code Formatting Integration</strong>: Automatic <code>dotnet format</code> verification and correction before releases</li>
+<li><strong>Markdown Linting</strong>: Automated markdown quality checks with auto-fix capabilities</li>
+<li><strong>Pre-release Validation</strong>: Comprehensive checks ensure code quality before tagging</li>
+</ul>
+<h4 id="new-release-script-parameters"><strong>New Release Script Parameters</strong></h4>
+<ul>
+<li><code>SkipFormat</code>: Option to bypass code formatting checks for quick releases</li>
+<li><code>SkipLint</code>: Option to bypass markdown linting for expedited releases</li>
+<li><strong>Enhanced Help System</strong>: Comprehensive usage examples and parameter documentation</li>
+</ul>
+<h3 id="developer-experience-improvements">Developer Experience Improvements</h3>
+<h4 id="safety-features"><strong>Safety Features</strong></h4>
+<ul>
+<li><strong>Uncommitted Changes Detection</strong>: Warns users about uncommitted changes before release</li>
+<li><strong>Branch Verification</strong>: Ensures releases are created from the main branch</li>
+<li><strong>Change Tracking</strong>: Monitors and reports formatting/linting modifications</li>
+<li><strong>Confirmation Prompts</strong>: Interactive confirmation for safety-critical operations</li>
+</ul>
+<h4 id="enhanced-dry-run-mode"><strong>Enhanced Dry Run Mode</strong></h4>
+<ul>
+<li><strong>Comprehensive Preview</strong>: Shows detailed overview of all planned actions</li>
+<li><strong>Step-by-Step Breakdown</strong>: Clear visualization of quality checks, git operations, and release creation</li>
+<li><strong>Risk Assessment</strong>: Helps identify potential issues before execution</li>
+</ul>
+<h2 id="-changes">🔄 Changes</h2>
+<h3 id="release-process-workflow">Release Process Workflow</h3>
+<h4 id="new-automated-pipeline"><strong>New Automated Pipeline</strong></h4>
+<ol>
+<li><strong>Quality Checks</strong> (formatting &amp; linting validation)</li>
+<li><strong>Generate Release Notes</strong> → <code>dev/tags/release_notes_v{version}.md</code></li>
+<li><strong>Lint Generated Files</strong> (ensure documentation quality)</li>
+<li><strong>Commit &amp; Push Changes</strong> (if quality checks made modifications)</li>
+<li><strong>Create &amp; Push Tag</strong> (trigger CI/CD workflows)</li>
+<li><strong>GitHub Release Creation</strong> (with auto-generated notes)</li>
+</ol>
+<h3 id="git-operations-enhancement">Git Operations Enhancement</h3>
+<ul>
+<li><strong>Smart Change Detection</strong>: Only commits when formatting/linting makes actual changes</li>
+<li><strong>Automated Commit Messages</strong>: Standardized format: <code>chore: format code and lint markdown for release v{version}</code></li>
+<li><strong>Atomic Operations</strong>: Ensures all changes are committed before tag creation</li>
+<li><strong>CI/CD Trigger Reliability</strong>: Tag push consistently triggers release workflows</li>
+</ul>
+<h3 id="error-handling--reliability">Error Handling &amp; Reliability</h3>
+<ul>
+<li><strong>Graceful Failure Handling</strong>: Stops on critical errors, including formatting and linting issues</li>
+<li><strong>Strict Quality Gates</strong>: Both dotnet format and markdown linting failures halt the release process</li>
+<li><strong>Tool Availability Checks</strong>: Warns if markdown-lint or other tools are missing</li>
+<li><strong>Exit Code Management</strong>: Proper error propagation for CI/CD integration</li>
+<li><strong>Recovery Guidance</strong>: Clear error messages with suggested solutions</li>
+</ul>
+<h2 id="-technical-implementation">🛠️ Technical Implementation</h2>
+<h3 id="code-quality-integration">Code Quality Integration</h3>
+<pre><code class="lang-powershell"># Formatting verification with auto-fix
+$formatResult = dotnet format src/Main.sln --verify-no-changes 2&gt;&amp;1
+if ($LASTEXITCODE -ne 0) {
+    Write-ColorOutput &quot;⚠️ Code formatting issues detected. Running format...&quot; &quot;Yellow&quot;
+    dotnet format src/Main.sln
+    $hasChanges = $true
+}
+</code></pre>
+<h3 id="markdown-quality-control">Markdown Quality Control</h3>
+<pre><code class="lang-powershell"># Post-generation linting with strict error handling
+$markdownLintScript = Join-Path $PSScriptRoot &quot;markdown-lint.ps1&quot;
+if (Test-Path $markdownLintScript) {
+    &amp; $markdownLintScript -Fix
+    if ($LASTEXITCODE -eq 0) {
+        Write-ColorOutput &quot;✅ Markdown linting completed successfully&quot; &quot;Green&quot;
+        $hasChanges = $true
+    } else {
+        Write-ColorOutput &quot;❌ Markdown linting failed with errors&quot; &quot;Red&quot;
+        exit 1
+    }
+}
+</code></pre>
+<h3 id="smart-git-operations">Smart Git Operations</h3>
+<pre><code class="lang-powershell"># Conditional commit based on actual changes
+if ($hasChanges -and -not $DryRun) {
+    git add -A
+    git commit -m &quot;chore: format code and lint markdown for release $Version&quot;
+    git push origin $currentBranch
+}
+</code></pre>
+<h2 id="-benefits">📊 Benefits</h2>
+<h3 id="for-developers">For Developers</h3>
+<ol>
+<li><strong>Consistent Code Quality</strong>: Automated formatting ensures uniform codebase</li>
+<li><strong>Reduced Manual Work</strong>: Automated quality checks eliminate repetitive tasks</li>
+<li><strong>Error Prevention</strong>: Pre-release validation catches issues early</li>
+<li><strong>Better Documentation</strong>: Auto-linted release notes improve readability</li>
+<li><strong>Safer Releases</strong>: Multiple safety checks prevent accidental bad releases</li>
+</ol>
+<h3 id="for-cicd-pipeline">For CI/CD Pipeline</h3>
+<ol>
+<li><strong>Reliable Triggers</strong>: Consistent tag creation ensures workflows execute properly</li>
+<li><strong>Quality Assurance</strong>: Pre-push checks reduce CI failure rates</li>
+<li><strong>Standardized Process</strong>: Uniform release procedure across all versions</li>
+<li><strong>Audit Trail</strong>: Clear commit history shows quality check results</li>
+</ol>
+<h2 id="-integration--compatibility">🔄 Integration &amp; Compatibility</h2>
+<h3 id="backward-compatibility">Backward Compatibility</h3>
+<ul>
+<li><strong>Existing Workflows</strong>: All existing GitHub Actions continue to work unchanged</li>
+<li><strong>Parameter Compatibility</strong>: All previous script parameters remain functional</li>
+<li><strong>Tag Format</strong>: Release tag format remains consistent (<code>v{major}.{minor}.{patch}</code>)</li>
+</ul>
+<h3 id="enhanced-workflows">Enhanced Workflows</h3>
+<ul>
+<li><strong>CI/CD Optimization</strong>: Faster builds due to pre-validated code formatting</li>
+<li><strong>Documentation Pipeline</strong>: Improved docs deployment with linted markdown</li>
+<li><strong>Security Scanning</strong>: Enhanced reliability with consistent code formatting</li>
+</ul>
+<h2 id="-usage-examples">📋 Usage Examples</h2>
+<h3 id="standard-release-recommended">Standard Release (Recommended)</h3>
+<pre><code class="lang-powershell"># Full release with all quality checks
+.\scripts\create-release.ps1 -Version &quot;v3.0.1&quot;
+</code></pre>
+<h3 id="quick-release">Quick Release</h3>
+<pre><code class="lang-powershell"># Skip quality checks for hotfixes
+.\scripts\create-release.ps1 -Version &quot;v3.0.1&quot; -SkipFormat -SkipLint
+</code></pre>
+<h3 id="preview-mode">Preview Mode</h3>
+<pre><code class="lang-powershell"># See what would happen without executing
+.\scripts\create-release.ps1 -Version &quot;v3.0.1&quot; -DryRun
+</code></pre>
+<p>This patch release establishes Jiro.Libs as having enterprise-grade release management with built-in quality assurance, setting the foundation for reliable and professional software delivery!</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <div class="footer-custom"><div class="footer-inner d-flex justify-content-between align-items-center"><div class="footer-text">Made with <strong>💖</strong> By HueByte</div><div class="footer-links"><a href="https://github.com/HueByte/Jiro.Libs" class="footer-link" target="_blank"><i class="fab fa-github"></i>GitHub</a><a href="#" class="footer-link scroll-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i>Top</a></div></div></div><script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

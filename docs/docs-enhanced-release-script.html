@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Enhanced Create Release Script | Jiro.Libs Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Enhanced Create Release Script | Jiro.Libs Documentation ">
+      
+      
+      <link rel="icon" href="../assets/Jiro-Icon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../assets/Jiro-Icon.png" alt="Jiro.Libs">
+            Jiro.Libs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="enhanced-create-release-script">Enhanced Create Release Script</h1>
+
+<h2 id="-new-features-added">🚀 New Features Added</h2>
+<p>The <code>create-release.ps1</code> script has been significantly enhanced with quality checks and improved git operations workflow.</p>
+<h3 id="-quality-checks-integration">✨ Quality Checks Integration</h3>
+<h4 id="1-code-formatting-dotnet-format">1. <strong>Code Formatting</strong> (<code>dotnet format</code>)</h4>
+<ul>
+<li><strong>Runs</strong>: <code>dotnet format src/Main.sln --verify-no-changes</code></li>
+<li><strong>Auto-fix</strong>: If formatting issues found, automatically runs <code>dotnet format src/Main.sln</code></li>
+<li><strong>Skip option</strong>: Use <code>-SkipFormat</code> to bypass this step</li>
+<li><strong>Benefits</strong>: Ensures consistent code formatting before releases</li>
+</ul>
+<h4 id="2-markdown-linting-after-release-notes-generation">2. <strong>Markdown Linting</strong> (after release notes generation)</h4>
+<ul>
+<li><strong>Runs</strong>: <code>.\scripts\markdown-lint.ps1 -Fix</code></li>
+<li><strong>Timing</strong>: Executes AFTER release notes file is created</li>
+<li><strong>Auto-fix</strong>: Automatically fixes markdown formatting issues</li>
+<li><strong>Skip option</strong>: Use <code>-SkipLint</code> to bypass this step</li>
+<li><strong>Benefits</strong>: Ensures release notes and all markdown follow standards</li>
+</ul>
+<h3 id="-improved-git-workflow">🔄 Improved Git Workflow</h3>
+<h4 id="enhanced-process-flow">Enhanced Process Flow:</h4>
+<ol>
+<li><strong>Quality Checks</strong> (formatting &amp; linting)</li>
+<li><strong>Generate Release Notes</strong> → <code>dev/tags/release_notes_v{version}.md</code></li>
+<li><strong>Lint Generated File</strong> (markdown quality check)</li>
+<li><strong>Commit &amp; Push Changes</strong> (if any formatting/linting changes made)</li>
+<li><strong>Create &amp; Push Tag</strong></li>
+<li><strong>GitHub Release Creation</strong></li>
+</ol>
+<h4 id="git-operations">Git Operations:</h4>
+<ul>
+<li><strong>Auto-commit</strong>: Commits formatting and linting changes with message: <code>chore: format code and lint markdown for release v{version}</code></li>
+<li><strong>Auto-push</strong>: Pushes changes to origin before creating tag</li>
+<li><strong>Tag creation</strong>: Creates annotated tag with release message</li>
+<li><strong>Tag push</strong>: Pushes tag to trigger CI/CD workflows</li>
+</ul>
+<h3 id="-new-command-line-options">📋 New Command Line Options</h3>
+<pre><code class="lang-powershell"># New parameters added
+-SkipFormat     # Skip dotnet format step
+-SkipLint       # Skip markdown linting step
+
+# Enhanced help
+.\create-release.ps1 -Help
+</code></pre>
+<h3 id="-usage-examples">🎯 Usage Examples</h3>
+<pre><code class="lang-powershell"># Full release with all quality checks (recommended)
+.\create-release.ps1 -Version &quot;v3.0.1&quot;
+
+# Quick release skipping quality checks
+.\create-release.ps1 -Version &quot;v3.0.1&quot; -SkipFormat -SkipLint
+
+# Dry run to preview actions
+.\create-release.ps1 -Version &quot;v3.0.1&quot; -DryRun
+
+# Auto-version with quality checks
+.\create-release.ps1
+
+# With build artifacts
+.\create-release.ps1 -AttachBuilds
+</code></pre>
+<h3 id="-enhanced-dry-run-output">🔍 Enhanced Dry Run Output</h3>
+<p>The dry run now shows a comprehensive overview:</p>
+<pre><code class="lang-cs">🔍 DRY RUN - Actions that would be performed:
+1. Quality Checks:
+   - Run dotnet format on solution
+   - Generate release notes file: dev/tags/release_notes_v3.0.1.md
+   - Run markdown lint with auto-fix
+2. Git Operations:
+   - Commit any formatting/linting changes
+   - Push changes to origin/main
+   - Create git tag: v3.0.1
+   - Push tag to origin
+3. Release Creation:
+   - Create GitHub release with generated notes
+</code></pre>
+<h3 id="-safety-features">⚠️ Safety Features</h3>
+<h4 id="change-detection">Change Detection:</h4>
+<ul>
+<li><strong>Uncommitted changes warning</strong>: Alerts if working directory has changes</li>
+<li><strong>Branch verification</strong>: Warns if not on main branch</li>
+<li><strong>Change tracking</strong>: Tracks if formatting/linting made changes</li>
+<li><strong>Confirmation prompts</strong>: Asks for confirmation before proceeding</li>
+</ul>
+<h4 id="error-handling">Error Handling:</h4>
+<ul>
+<li><strong>Build failures</strong>: Stops if dotnet format fails</li>
+<li><strong>Lint failures</strong>: Stops if markdown linting finds any issues (even unfixable ones)</li>
+<li><strong>Git failures</strong>: Stops if tag creation or push fails</li>
+<li><strong>Missing tools</strong>: Warns if markdown-lint script not found</li>
+</ul>
+<h3 id="-technical-implementation">🛠️ Technical Implementation</h3>
+<h4 id="code-formatting-check">Code Formatting Check:</h4>
+<pre><code class="lang-powershell">$formatResult = dotnet format src/Main.sln --verify-no-changes 2&gt;&amp;1
+if ($LASTEXITCODE -ne 0) {
+    Write-ColorOutput &quot;⚠️ Code formatting issues detected. Running format...&quot; &quot;Yellow&quot;
+    dotnet format src/Main.sln
+    $hasChanges = $true
+}
+</code></pre>
+<h4 id="markdown-linting">Markdown Linting:</h4>
+<pre><code class="lang-powershell">$markdownLintScript = Join-Path $PSScriptRoot &quot;markdown-lint.ps1&quot;
+if (Test-Path $markdownLintScript) {
+    &amp; $markdownLintScript -Fix
+    $hasChanges = $true
+}
+</code></pre>
+<h4 id="git-auto-operations">Git Auto Operations:</h4>
+<pre><code class="lang-powershell">if ($hasChanges -and -not $DryRun) {
+    git add -A
+    git commit -m &quot;chore: format code and lint markdown for release $Version&quot;
+    git push origin $currentBranch
+}
+</code></pre>
+<h3 id="-benefits">📊 Benefits</h3>
+<ol>
+<li><strong>Quality Assurance</strong>: Ensures code and documentation quality before releases</li>
+<li><strong>Automation</strong>: Reduces manual steps in release process</li>
+<li><strong>Consistency</strong>: Enforces formatting and documentation standards</li>
+<li><strong>Reliability</strong>: Comprehensive error handling and safety checks</li>
+<li><strong>Transparency</strong>: Clear dry-run preview of all actions</li>
+</ol>
+<h3 id="-integration-with-cicd">🔄 Integration with CI/CD</h3>
+<p>The enhanced script works seamlessly with existing GitHub Actions:</p>
+<ul>
+<li><strong>Triggers</strong>: Tag push still triggers <code>create-release.yml</code> workflow</li>
+<li><strong>Quality</strong>: Pre-push quality checks reduce CI failures</li>
+<li><strong>Consistency</strong>: Automated formatting ensures consistent codebase</li>
+<li><strong>Documentation</strong>: Auto-linted release notes improve readability</li>
+</ul>
+<p>This enhancement transforms the release script from a simple tag creator into a comprehensive release management tool with built-in quality assurance!</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <div class="footer-custom"><div class="footer-inner d-flex justify-content-between align-items-center"><div class="footer-text">Made with <strong>💖</strong> By HueByte</div><div class="footer-links"><a href="https://github.com/HueByte/Jiro.Libs" class="footer-link" target="_blank"><i class="fab fa-github"></i>GitHub</a><a href="#" class="footer-link scroll-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i>Top</a></div></div></div><script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

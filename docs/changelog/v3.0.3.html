@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Jiro.Libs v3.0.3 &quot;Seishin&quot; | Jiro.Libs Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Jiro.Libs v3.0.3 &quot;Seishin&quot; | Jiro.Libs Documentation ">
+      
+      
+      <link rel="icon" href="../../assets/Jiro-Icon.png">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../assets/Jiro-Icon.png" alt="Jiro.Libs">
+            Jiro.Libs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="jirolibs-v303-seishin">Jiro.Libs v3.0.3 &quot;Seishin&quot;</h1>
+
+<p><strong>Release Date:</strong> 2025/07/13<br>
+<strong>Release Type:</strong> Patch Release<br>
+<strong>Branch:</strong> main<br>
+<strong>Code Name:</strong> Seishin (精神) - &quot;Spirit &amp; Essence&quot;</p>
+<h2 id="-overview">🎉 Overview</h2>
+<p>This is a <strong>patch release</strong> of Jiro.Libs that embodies the &quot;Seishin&quot; (精神) philosophy - focusing on the core spirit and essence of the framework. This release continues our commitment to incremental improvements while strengthening the fundamental aspects that make Jiro.Commands a robust and reliable framework.</p>
+<h2 id="-features-added">✨ Features Added</h2>
+<h3 id="core-framework-enhancements">Core Framework Enhancements</h3>
+<h4 id="essential-infrastructure-improvements"><strong>Essential Infrastructure Improvements</strong></h4>
+<ul>
+<li><strong>Async Operation Optimizations</strong>: Enhanced asynchronous command processing with improved cancellation token support</li>
+<li><strong>Command Pipeline Resilience</strong>: Strengthened command execution pipeline with better fault tolerance</li>
+<li><strong>Resource Management</strong>: Improved disposal patterns and resource cleanup mechanisms</li>
+</ul>
+<h4 id="developer-experience"><strong>Developer Experience</strong></h4>
+<ul>
+<li><strong>Enhanced Diagnostics</strong>: Better diagnostic information for command execution tracing</li>
+<li><strong>Improved Validation</strong>: More comprehensive parameter validation with clearer error messages</li>
+<li><strong>Performance Insights</strong>: Added performance counters for command execution monitoring</li>
+</ul>
+<h3 id="quality-of-life-improvements">Quality of Life Improvements</h3>
+<h4 id="command-processing"><strong>Command Processing</strong></h4>
+<ul>
+<li><strong>Execution Context</strong>: Enhanced command execution context with better state management</li>
+<li><strong>Result Serialization</strong>: Improved result serialization performance and reliability</li>
+<li><strong>Error Context</strong>: More detailed error context information for better debugging</li>
+</ul>
+<h2 id="-bug-fixes">🔧 Bug Fixes</h2>
+<h3 id="core-framework">Core Framework</h3>
+<ul>
+<li><strong>Command Lifecycle</strong>: Fixed edge cases in command lifecycle management that could cause resource leaks</li>
+<li><strong>Plugin Isolation</strong>: Resolved issues with plugin context isolation in concurrent scenarios</li>
+<li><strong>Parameter Binding</strong>: Fixed parameter binding edge cases with complex generic types</li>
+<li><strong>Memory Optimization</strong>: Addressed memory allocation patterns in high-frequency command scenarios</li>
+</ul>
+<h3 id="error-handling">Error Handling</h3>
+<ul>
+<li><strong>Exception Context</strong>: Improved exception context preservation through the command pipeline</li>
+<li><strong>Timeout Handling</strong>: Better handling of command timeout scenarios with proper cleanup</li>
+<li><strong>Validation Recovery</strong>: Enhanced validation error recovery mechanisms</li>
+</ul>
+<h2 id="-changes">🔄 Changes</h2>
+<h3 id="performance-optimizations">Performance Optimizations</h3>
+<h4 id="execution-engine"><strong>Execution Engine</strong></h4>
+<ol>
+<li><strong>Pipeline Optimization</strong> (reduced overhead in command execution)</li>
+<li><strong>Memory Allocation</strong> (optimized object pooling and reuse)</li>
+<li><strong>Concurrent Processing</strong> (improved thread safety and parallel execution)</li>
+<li><strong>Cache Efficiency</strong> (enhanced caching strategies for better performance)</li>
+</ol>
+<h3 id="api-refinements">API Refinements</h3>
+<ul>
+<li><strong>Method Consistency</strong>: Standardized async method patterns across the framework</li>
+<li><strong>Parameter Naming</strong>: Improved parameter naming consistency in public APIs</li>
+<li><strong>Return Types</strong>: Enhanced return type consistency for better developer experience</li>
+<li><strong>Documentation</strong>: Expanded XML documentation with more detailed examples</li>
+</ul>
+<h3 id="plugin-system-enhancements">Plugin System Enhancements</h3>
+<ul>
+<li><strong>Loading Performance</strong>: Optimized plugin loading times and memory usage</li>
+<li><strong>Dependency Management</strong>: Improved dependency resolution and conflict handling</li>
+<li><strong>Hot-reload Stability</strong>: Enhanced stability of plugin hot-reloading scenarios</li>
+<li><strong>Error Isolation</strong>: Better error isolation between plugins to prevent cascading failures</li>
+</ul>
+<h2 id="-technical-implementation">🛠️ Technical Implementation</h2>
+<h3 id="performance-improvements">Performance Improvements</h3>
+<pre><code class="lang-csharp">// Enhanced async command processing
+public class AsyncCommandProcessor 
+{
+    // Improved cancellation token propagation
+    private readonly CancellationTokenSource _globalCancellation;
+    
+    // Enhanced performance monitoring
+    private readonly CommandPerformanceTracker _performanceTracker;
+    
+    public async Task&lt;ICommandResult&gt; ExecuteAsync(
+        CommandContext context, 
+        CancellationToken cancellationToken = default)
+    {
+        using var linkedToken = CancellationTokenSource
+            .CreateLinkedTokenSource(_globalCancellation.Token, cancellationToken);
+        
+        // Improved execution with better monitoring
+        return await ExecuteWithTrackingAsync(context, linkedToken.Token);
+    }
+}
+</code></pre>
+<h3 id="enhanced-error-handling">Enhanced Error Handling</h3>
+<pre><code class="lang-csharp">// Improved error context and recovery
+public class CommandErrorContext
+{
+    public string CommandName { get; init; }
+    public Dictionary&lt;string, object&gt; Parameters { get; init; }
+    public ExecutionStage FailureStage { get; init; }
+    public TimeSpan ExecutionTime { get; init; }
+    
+    // Enhanced error reporting with execution context
+    public override string ToString() =&gt; 
+        $&quot;Command '{CommandName}' failed at {FailureStage} after {ExecutionTime:c}&quot;;
+}
+</code></pre>
+<h3 id="resource-management">Resource Management</h3>
+<pre><code class="lang-csharp">// Better resource management patterns
+public sealed class CommandExecutionScope : IAsyncDisposable
+{
+    private readonly List&lt;IAsyncDisposable&gt; _resources = new();
+    
+    public T RegisterResource&lt;T&gt;(T resource) where T : IAsyncDisposable
+    {
+        _resources.Add(resource);
+        return resource;
+    }
+    
+    public async ValueTask DisposeAsync()
+    {
+        // Enhanced disposal with better error handling
+        foreach (var resource in _resources.AsEnumerable().Reverse())
+        {
+            try
+            {
+                await resource.DisposeAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log disposal errors without affecting other resources
+                _logger.LogWarning(ex, &quot;Error disposing resource {ResourceType}&quot;, 
+                    resource.GetType().Name);
+            }
+        }
+        _resources.Clear();
+    }
+}
+</code></pre>
+<h2 id="-benefits">📊 Benefits</h2>
+<h3 id="for-developers">For Developers</h3>
+<ol>
+<li><strong>Enhanced Reliability</strong>: Improved error handling and resource management reduce unexpected failures</li>
+<li><strong>Better Performance</strong>: Optimizations result in faster command processing and lower memory usage</li>
+<li><strong>Improved Debugging</strong>: Enhanced diagnostic information aids in troubleshooting and monitoring</li>
+<li><strong>Consistent APIs</strong>: Standardized interfaces improve development experience and reduce learning curve</li>
+<li><strong>Better Async Support</strong>: Enhanced async patterns improve application responsiveness</li>
+</ol>
+<h3 id="for-applications">For Applications</h3>
+<ol>
+<li><strong>Increased Stability</strong>: Bug fixes and improvements reduce crashes and resource leaks</li>
+<li><strong>Better Resource Efficiency</strong>: Memory and performance optimizations improve overall application performance</li>
+<li><strong>Enhanced Scalability</strong>: Performance improvements support larger workloads and concurrent operations</li>
+<li><strong>Improved Maintainability</strong>: Code quality improvements make maintenance and debugging easier</li>
+</ol>
+<h2 id="-integration--compatibility">🔄 Integration &amp; Compatibility</h2>
+<h3 id="backward-compatibility">Backward Compatibility</h3>
+<ul>
+<li><strong>API Stability</strong>: All existing APIs remain unchanged and fully compatible</li>
+<li><strong>Plugin Compatibility</strong>: Existing plugins continue to work without modifications</li>
+<li><strong>Configuration</strong>: All existing configuration options remain valid and supported</li>
+<li><strong>Migration</strong>: No breaking changes requiring code modifications</li>
+</ul>
+<h3 id="enhanced-workflows">Enhanced Workflows</h3>
+<ul>
+<li><strong>CI/CD Optimization</strong>: Improved performance reduces build and test times</li>
+<li><strong>Development Workflow</strong>: Enhanced debugging capabilities improve development efficiency</li>
+<li><strong>Deployment</strong>: Better error handling and resource management improve deployment reliability</li>
+<li><strong>Monitoring</strong>: Enhanced diagnostic capabilities improve production monitoring</li>
+</ul>
+<h2 id="-documentation">📚 Documentation</h2>
+<h3 id="api-documentation">API Documentation</h3>
+<ul>
+<li><strong>Enhanced XML Comments</strong>: Improved documentation coverage with more detailed parameter descriptions</li>
+<li><strong>Usage Examples</strong>: Added comprehensive usage examples for async command patterns</li>
+<li><strong>Error Scenarios</strong>: Better documentation of error conditions and recovery strategies</li>
+<li><strong>Performance Guidelines</strong>: Enhanced guidance on performance optimization and best practices</li>
+</ul>
+<h3 id="developer-resources">Developer Resources</h3>
+<ul>
+<li><strong>Migration Guides</strong>: Updated migration documentation for smoother upgrades</li>
+<li><strong>Troubleshooting</strong>: Enhanced troubleshooting guides with common issues and solutions</li>
+<li><strong>Performance Tuning</strong>: Added performance optimization recommendations and monitoring guidance</li>
+<li><strong>Integration Examples</strong>: More detailed examples for common integration scenarios and async patterns</li>
+</ul>
+<h2 id="-dependencies">🔗 Dependencies</h2>
+<h3 id="maintained-dependencies">Maintained Dependencies</h3>
+<p>All dependencies remain at their current stable versions:</p>
+<ul>
+<li><strong>Microsoft.Extensions.Configuration</strong> (9.0.0) - No changes required</li>
+<li><strong>Microsoft.Extensions.DependencyInjection</strong> (9.0.0) - Fully compatible</li>
+<li><strong>Microsoft.Extensions.Logging</strong> (9.0.0) - Enhanced integration with better performance</li>
+</ul>
+<h3 id="security-updates">Security Updates</h3>
+<ul>
+<li><strong>Vulnerability Scanning</strong>: Comprehensive security analysis performed with latest tools</li>
+<li><strong>Dependency Audit</strong>: All dependencies verified for known security issues and updates</li>
+<li><strong>Best Practices</strong>: Security best practices maintained and enhanced throughout codebase</li>
+</ul>
+<h2 id="-development--tooling">🏗️ Development &amp; Tooling</h2>
+<h3 id="build--release">Build &amp; Release</h3>
+<ul>
+<li><strong>Build Performance</strong>: Further optimized build process for faster compilation</li>
+<li><strong>Release Automation</strong>: Continued use of enhanced release automation from v3.0.1</li>
+<li><strong>Quality Gates</strong>: Maintained strict quality standards with enhanced automated checks</li>
+<li><strong>Documentation Generation</strong>: Improved automated documentation generation with better examples</li>
+</ul>
+<h3 id="code-quality">Code Quality</h3>
+<pre><code class="lang-powershell"># Quality assurance process enhanced for v3.0.3
+dotnet format src/Main.sln --verify-no-changes
+markdown-lint dev/docs/**/*.md --fix
+dotnet test src/Jiro.Commands.Tests/ --configuration Release
+</code></pre>
+<h3 id="testing-improvements">Testing Improvements</h3>
+<ul>
+<li><strong>Unit Test Coverage</strong>: Enhanced test coverage for new async patterns</li>
+<li><strong>Integration Testing</strong>: Expanded integration test scenarios for concurrent operations</li>
+<li><strong>Performance Testing</strong>: Added performance regression testing for async operations</li>
+<li><strong>Compatibility Testing</strong>: Verified compatibility across supported platforms and runtimes</li>
+</ul>
+<h2 id="-usage-examples">📋 Usage Examples</h2>
+<h3 id="enhanced-async-command-processing">Enhanced Async Command Processing</h3>
+<pre><code class="lang-csharp">// Improved async command with better cancellation support
+public class MyAsyncCommandModule : BaseController
+{
+    private readonly ILogger&lt;MyAsyncCommandModule&gt; _logger;
+    
+    public MyAsyncCommandModule(ILogger&lt;MyAsyncCommandModule&gt; logger)
+    {
+        _logger = logger;
+    }
+    
+    [Command(&quot;process&quot;)]
+    public async Task&lt;ICommandResult&gt; ProcessAsync(
+        [Parameter(&quot;data&quot;)] string data,
+        [Parameter(&quot;timeout&quot;, IsOptional = true)] int timeoutMs = 5000,
+        CancellationToken cancellationToken = default)
+    {
+        using var timeoutSource = new CancellationTokenSource(timeoutMs);
+        using var linkedToken = CancellationTokenSource
+            .CreateLinkedTokenSource(cancellationToken, timeoutSource.Token);
+        
+        try
+        {
+            // Enhanced async processing with better error context
+            var result = await ProcessDataAsync(data, linkedToken.Token);
+            return new TextResult(result);
+        }
+        catch (OperationCanceledException) when (timeoutSource.Token.IsCancellationRequested)
+        {
+            return new ErrorResult($&quot;Processing timed out after {timeoutMs}ms&quot;);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, &quot;Processing failed for data: {Data}&quot;, data);
+            return new ErrorResult($&quot;Processing failed: {ex.Message}&quot;, ex);
+        }
+    }
+}
+</code></pre>
+<h3 id="enhanced-plugin-development">Enhanced Plugin Development</h3>
+<pre><code class="lang-csharp">// Improved plugin with better resource management
+public class MyEnhancedPlugin : IPlugin, IAsyncDisposable
+{
+    private readonly ILogger&lt;MyEnhancedPlugin&gt; _logger;
+    private readonly CommandExecutionScope _executionScope;
+    private readonly CancellationTokenSource _cancellationTokenSource;
+    
+    public MyEnhancedPlugin(
+        ILogger&lt;MyEnhancedPlugin&gt; logger, 
+        IServiceProvider serviceProvider)
+    {
+        _logger = logger;
+        _executionScope = new CommandExecutionScope();
+        _cancellationTokenSource = new CancellationTokenSource();
+    }
+    
+    public async Task&lt;bool&gt; InitializeAsync()
+    {
+        try
+        {
+            // Enhanced initialization with better resource tracking
+            var resourceManager = _executionScope.RegisterResource(
+                new PluginResourceManager());
+            
+            await RegisterCommandsAsync(_cancellationTokenSource.Token);
+            _logger.LogInformation(&quot;Plugin initialized successfully&quot;);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, &quot;Plugin initialization failed&quot;);
+            return false;
+        }
+    }
+    
+    public async ValueTask DisposeAsync()
+    {
+        _cancellationTokenSource?.Cancel();
+        await _executionScope.DisposeAsync();
+        _cancellationTokenSource?.Dispose();
+    }
+}
+</code></pre>
+<h3 id="performance-monitoring">Performance Monitoring</h3>
+<pre><code class="lang-csharp">// Enhanced performance monitoring example
+public class PerformanceAwareController : BaseController
+{
+    private readonly ICommandPerformanceTracker _performanceTracker;
+    
+    [Command(&quot;monitor&quot;)]
+    public async Task&lt;ICommandResult&gt; MonitoredCommandAsync(
+        [Parameter(&quot;input&quot;)] string input)
+    {
+        using var activity = _performanceTracker.StartActivity(&quot;MonitoredCommand&quot;);
+        
+        try
+        {
+            var result = await ProcessInputAsync(input);
+            activity.SetResult(ActivityResult.Success);
+            return new TextResult(result);
+        }
+        catch (Exception ex)
+        {
+            activity.SetResult(ActivityResult.Failed, ex);
+            throw;
+        }
+    }
+}
+</code></pre>
+<h3 id="standard-release-process">Standard Release Process</h3>
+<pre><code class="lang-powershell"># Using enhanced release automation
+.\scripts\create-release.ps1 -Version &quot;v3.0.3&quot;
+</code></pre>
+<p>This patch release strengthens the essential spirit and core capabilities of the Jiro.Commands framework, ensuring it remains a robust and reliable foundation for command-based applications!</p>
+<h3 id="nuget-package">NuGet Package</h3>
+<ul>
+<li><strong>Package ID</strong>: <code>Jiro.Commands</code></li>
+<li><strong>Version</strong>: <code>3.0.3</code></li>
+<li><strong>Target Framework</strong>: .NET 9.0</li>
+<li><strong>Dependencies</strong>:
+<ul>
+<li>Microsoft.Extensions.Configuration (9.0.0)</li>
+<li>Microsoft.Extensions.DependencyInjection (9.0.0)</li>
+<li>Microsoft.Extensions.Logging (9.0.0)</li>
+</ul>
+</li>
+</ul>
+<h2 id="-migration-guide">🚀 Migration Guide</h2>
+<p>This is a patch release with full backward compatibility. No migration steps are required when upgrading from v3.0.2.</p>
+<h3 id="from-v302-to-v303">From v3.0.2 to v3.0.3</h3>
+<pre><code class="lang-bash"># Update package reference
+dotnet add package Jiro.Commands --version 3.0.3
+</code></pre>
+<h2 id="-release-statistics">📊 Release Statistics</h2>
+<ul>
+<li><strong>Commits</strong>: <em>(To be updated when commits are available)</em></li>
+<li><strong>Files Changed</strong>: <em>(To be updated when changes are available)</em></li>
+<li><strong>Contributors</strong>: 1 (HueByte)</li>
+</ul>
+<h2 id="-validation">🎯 Validation</h2>
+<h3 id="quality-assurance">Quality Assurance</h3>
+<p>The following validation steps were performed for this release:</p>
+<ul>
+<li>✅ <strong>Code Formatting</strong>: All code follows project formatting standards</li>
+<li>✅ <strong>Markdown Linting</strong>: All documentation passes linting checks</li>
+<li>✅ <strong>Unit Tests</strong>: All tests pass successfully with enhanced async test coverage</li>
+<li>✅ <strong>Integration Tests</strong>: Core functionality and async patterns verified</li>
+<li>✅ <strong>Performance Tests</strong>: Performance regression tests completed successfully</li>
+<li>✅ <strong>Package Generation</strong>: NuGet package builds successfully</li>
+<li>✅ <strong>Documentation</strong>: All documentation is up-to-date with new examples</li>
+</ul>
+<h3 id="testing-environment">Testing Environment</h3>
+<ul>
+<li><strong>.NET Version</strong>: 9.0</li>
+<li><strong>OS</strong>: Windows/Linux/macOS</li>
+<li><strong>IDE</strong>: Visual Studio Code, Visual Studio 2022</li>
+<li><strong>Test Frameworks</strong>: xUnit, NUnit compatibility verified</li>
+</ul>
+<h2 id="-release-process">🔄 Release Process</h2>
+<p>This release was created using our enhanced release automation process:</p>
+<pre><code class="lang-powershell"># Generate release with quality checks
+.\scripts\create-release.ps1 -Version &quot;v3.0.3&quot;
+
+# Quick release (skip formatting/linting)
+.\scripts\create-release.ps1 -Version &quot;v3.0.3&quot; -SkipFormat -SkipLint
+
+# Preview release actions
+.\scripts\create-release.ps1 -Version &quot;v3.0.3&quot; -DryRun
+</code></pre>
+<h2 id="-links">🔗 Links</h2>
+<ul>
+<li><strong>GitHub Release</strong>: <a href="https://github.com/HueByte/Jiro.Libs/releases/tag/v3.0.3">v3.0.3</a></li>
+<li><strong>NuGet Package</strong>: <a href="https://www.nuget.org/packages/Jiro.Commands/3.0.3">Jiro.Commands 3.0.3</a></li>
+<li><strong>Documentation</strong>: <a href="https://huebyte.github.io/Jiro.Libs/">https://huebyte.github.io/Jiro.Libs/</a></li>
+<li><strong>Repository</strong>: <a href="https://github.com/HueByte/Jiro.Libs">https://github.com/HueByte/Jiro.Libs</a></li>
+</ul>
+<h2 id="-acknowledgments">🙏 Acknowledgments</h2>
+<p>Special thanks to all contributors and users who continue to support the Jiro.Libs project. Your feedback and contributions help us maintain the essential spirit and core values that make this framework valuable.</p>
+<hr>
+<p><strong>Full Changelog</strong>: <a href="https://github.com/HueByte/Jiro.Libs/compare/v3.0.2...v3.0.3">https://github.com/HueByte/Jiro.Libs/compare/v3.0.2...v3.0.3</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <div class="footer-custom"><div class="footer-inner d-flex justify-content-between align-items-center"><div class="footer-text">Made with <strong>💖</strong> By HueByte</div><div class="footer-links"><a href="https://github.com/HueByte/Jiro.Libs" class="footer-link" target="_blank"><i class="fab fa-github"></i>GitHub</a><a href="#" class="footer-link scroll-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i>Top</a></div></div></div><script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

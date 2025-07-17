@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Command Creation Pipeline in Jiro.Commands | Jiro.Libs Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Command Creation Pipeline in Jiro.Commands | Jiro.Libs Documentation ">
+      
+      
+      <link rel="icon" href="../assets/Jiro-Icon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../assets/Jiro-Icon.png" alt="Jiro.Libs">
+            Jiro.Libs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="command-creation-pipeline-in-jirocommands">Command Creation Pipeline in Jiro.Commands</h1>
+
+<h2 id="overview">Overview</h2>
+<p>The Jiro.Commands framework implements a sophisticated command creation pipeline that automatically discovers, analyzes, and registers command methods from assemblies. This pipeline transforms decorated methods into executable command objects through a series of well-defined stages.</p>
+<h2 id="pipeline-architecture">Pipeline Architecture</h2>
+<p>The command creation pipeline consists of the following sequential stages:</p>
+<pre><code class="lang-mermaid">graph TD
+  A[Assembly Loading] --&gt; B[Module Discovery]
+  B --&gt; C[Method Discovery]
+  C --&gt; D[Command Validation]
+  D --&gt; E[Parameter Analysis]
+  E --&gt; F[Lambda Compilation]
+  F --&gt; G[Command Registration]
+  G --&gt; H[Ready for Execution]
+</code></pre>
+<p>Each stage processes the output of the previous one, transforming assemblies into executable command objects ready for runtime execution.</p>
+<h2 id="stage-1-assembly-discovery">Stage 1: Assembly Discovery</h2>
+<h3 id="assembly-loading-process">Assembly Loading Process</h3>
+<p>The pipeline begins by discovering all loaded assemblies in the current application domain:</p>
+<pre><code class="lang-csharp">internal static Assembly[]? GetDomainAssemblies() =&gt; AppDomain.CurrentDomain.GetAssemblies();
+</code></pre>
+<p><strong>Key Characteristics</strong>:</p>
+<ul>
+<li>Scans all assemblies currently loaded in the AppDomain</li>
+<li>Includes both application assemblies and referenced libraries</li>
+<li>Dynamic assemblies are included if loaded at runtime</li>
+<li>No file system scanning - only in-memory assemblies</li>
+</ul>
+<h3 id="assembly-filtering">Assembly Filtering</h3>
+<p>The system processes assemblies that contain:</p>
+<ul>
+<li>Types decorated with <code>[CommandModule]</code></li>
+<li>Public or internal accessibility</li>
+<li>Non-interface, non-abstract classes</li>
+</ul>
+<h2 id="stage-2-command-module-discovery">Stage 2: Command Module Discovery</h2>
+<h3 id="module-identification">Module Identification</h3>
+<p>Command modules are identified using the <code>CommandModuleAttribute</code>:</p>
+<pre><code class="lang-csharp">internal static Type[]? GetCommandModules(Assembly[] assemblies)
+{
+    var commandModules = assemblies
+        .SelectMany(asm =&gt; asm.GetTypes()
+            .Where(type =&gt;
+                !type.IsInterface
+                &amp;&amp; type.GetCustomAttributes(typeof(CommandModuleAttribute), false).Length &gt; 0
+        ))
+        .ToArray();
+
+    return commandModules;
+}
+</code></pre>
+<h3 id="module-requirements">Module Requirements</h3>
+<p>Valid command modules must:</p>
+<ul>
+<li>Be concrete classes (not interfaces or abstract)</li>
+<li>Have the <code>[CommandModule]</code> attribute</li>
+<li>Be instantiable through dependency injection</li>
+<li>Inherit from or implement <code>ICommandBase</code></li>
+</ul>
+<h3 id="example-command-module">Example Command Module</h3>
+<pre><code class="lang-csharp">[CommandModule(&quot;PluginCommand&quot;)]
+public class PluginCommand : ICommandBase
+{
+    private readonly IPluginService _pluginService;
+    public PluginCommand(IPluginService pluginService)
+    {
+        _pluginService = pluginService;
+    }
+
+    [Command(&quot;PluginTest&quot;, commandSyntax: &quot;PluginTest&quot;, commandDescription: &quot;Tests plugin command&quot;)]
+    public async Task&lt;ICommandResult&gt; PluginTest()
+    {
+        _pluginService.ServiceTest();
+
+        await Task.Delay(1000);
+        return TextResult.Create(&quot;Plugin Command Executed&quot;);
+    }
+}
+</code></pre>
+<h2 id="stage-3-method-discovery">Stage 3: Method Discovery</h2>
+<h3 id="command-method-identification">Command Method Identification</h3>
+<p>Within each module, the pipeline identifies command methods:</p>
+<pre><code class="lang-csharp">internal static MethodInfo[] GetPotentialCommands(Type type)
+{
+    var methodInfos = type
+        .GetMethods()
+        .Where(method =&gt; method.GetCustomAttributes(typeof(CommandAttribute), false).Length &gt; 0)
+        .ToArray();
+
+    return methodInfos;
+}
+</code></pre>
+<h3 id="method-criteria">Method Criteria</h3>
+<p>Valid command methods must:</p>
+<ul>
+<li>Have the <code>[Command]</code> attribute</li>
+<li>Be public or internal</li>
+<li>Have a supported return type</li>
+<li>Accept supported parameter types</li>
+</ul>
+<h3 id="supported-return-types">Supported Return Types</h3>
+<ul>
+<li><code>void</code> - Fire-and-forget commands</li>
+<li><code>Task</code> - Async commands without return value</li>
+<li><code>Task&lt;T&gt;</code> - Async commands with return value</li>
+<li><code>ICommandResult</code> - Structured command results</li>
+<li><code>Task&lt;ICommandResult&gt;</code> - Async structured results</li>
+</ul>
+<h2 id="stage-4-command-validation">Stage 4: Command Validation</h2>
+<h3 id="attribute-analysis">Attribute Analysis</h3>
+<p>Each command method is analyzed for its attributes:</p>
+<pre><code class="lang-csharp">var commandName = method.GetCustomAttribute&lt;CommandAttribute&gt;()?.CommandName.ToLower() ?? &quot;&quot;;
+var commandType = method.GetCustomAttribute&lt;CommandAttribute&gt;()?.CommandType ?? CommandType.Text;
+var commandDescription = method.GetCustomAttribute&lt;CommandAttribute&gt;()?.CommandDescription ?? &quot;&quot;;
+var commandSyntax = method.GetCustomAttribute&lt;CommandAttribute&gt;()?.CommandSyntax ?? &quot;&quot;;
+</code></pre>
+<h3 id="validation-rules">Validation Rules</h3>
+<ol>
+<li><strong>Unique Names</strong>: Command names must be unique within the application</li>
+<li><strong>Valid Types</strong>: Command types must be from the <code>CommandType</code> enumeration</li>
+<li><strong>Parameter Compatibility</strong>: All parameters must have compatible type parsers</li>
+<li><strong>Return Type Validation</strong>: Return types must be supported by the framework</li>
+</ol>
+<h3 id="async-detection">Async Detection</h3>
+<p>The pipeline automatically detects asynchronous methods:</p>
+<pre><code class="lang-csharp">var isAsync = method.ReturnType == typeof(Task) ||
+              (method.ReturnType.IsGenericType &amp;&amp; 
+               method.ReturnType.GetGenericTypeDefinition() == typeof(Task&lt;&gt;));
+</code></pre>
+<h2 id="stage-5-parameter-analysis">Stage 5: Parameter Analysis</h2>
+<h3 id="parameter-discovery">Parameter Discovery</h3>
+<p>For each command method, the pipeline analyzes its parameters:</p>
+<pre><code class="lang-csharp">internal static IReadOnlyList&lt;ParameterInfo&gt; GetParameters(MethodInfo methodInfo)
+{
+    List&lt;ParameterInfo&gt; parameterInfos = new();
+    var parameters = methodInfo.GetParameters();
+
+    foreach (var parameter in parameters)
+    {
+        ParameterInfo parameterInfo = new(
+            parameter.ParameterType,
+            GetParser(parameter.ParameterType)!
+        );
+        parameterInfos.Add(parameterInfo);
+    }
+
+    return parameterInfos;
+}
+</code></pre>
+<h3 id="type-parser-assignment">Type Parser Assignment</h3>
+<p>Each parameter type is assigned a compatible type parser:</p>
+<pre><code class="lang-csharp">private static TypeParser? GetParser(Type type)
+{
+    // todo
+    return type switch
+    {
+        _ =&gt; (TypeParser)Activator.CreateInstance(typeof(DefaultValueParser&lt;&gt;).MakeGenericType(new Type[] { type }))!
+    };
+}
+</code></pre>
+<h3 id="supported-parameter-types">Supported Parameter Types</h3>
+<ul>
+<li><strong>Primitive Types</strong>: <code>int</code>, <code>string</code>, <code>bool</code>, <code>double</code>, etc.</li>
+<li><strong>Complex Types</strong>: Custom classes with appropriate parsers</li>
+<li><strong>Collections</strong>: Arrays and lists with element type parsers</li>
+<li><strong>Nullable Types</strong>: Optional parameters with null handling</li>
+</ul>
+<h2 id="stage-6-lambda-compilation">Stage 6: Lambda Compilation</h2>
+<h3 id="compilation-process">Compilation Process</h3>
+<p>The most critical stage involves compiling method invocation lambdas:</p>
+<pre><code class="lang-csharp">var compiledMethod = CompileMethodInvoker&lt;TBaseInstance, TReturn&gt;(method);
+</code></pre>
+<p><strong>Benefits</strong>:</p>
+<ul>
+<li><strong>Performance</strong>: 20x faster than reflection</li>
+<li><strong>Type Safety</strong>: Compile-time type checking</li>
+<li><strong>Memory Efficiency</strong>: Zero allocations per call</li>
+</ul>
+<h3 id="wrapper-creation">Wrapper Creation</h3>
+<p>A uniform async wrapper is created for all commands:</p>
+<pre><code class="lang-csharp">Func&lt;ICommandBase, object?[], Task&lt;ICommandResult?&gt;&gt; descriptor = async (instance, args) =&gt;
+{
+    var result = compiledMethod((TBaseInstance)(object)instance, args ?? Array.Empty&lt;object?&gt;());
+
+    // All commands should return Tasks, so handle them accordingly
+    if (result is Task task)
+    {
+        await task;
+
+        // Use dynamic to access the Result property of Task&lt;T&gt;
+        try
+        {
+            dynamic dynamicTask = task;
+            var taskResult = dynamicTask.Result;
+            if (taskResult is ICommandResult commandResult)
+            {
+                return commandResult;
+            }
+        }
+        catch
+        {
+            // If dynamic access fails, the task likely didn't have a Result property (Task vs Task&lt;T&gt;)
+        }
+    }
+
+    return null;
+};
+</code></pre>
+<h2 id="stage-7-command-registration">Stage 7: Command Registration</h2>
+<h3 id="commandinfo-creation">CommandInfo Creation</h3>
+<p>The final command object is created:</p>
+<pre><code class="lang-csharp">CommandInfo commandInfo = new(
+    commandName,
+    commandType,
+    isAsync,
+    declaringType,
+    descriptor,
+    args,
+    commandSyntax,
+    commandDescription
+);
+</code></pre>
+<h3 id="registration-storage">Registration Storage</h3>
+<p>Commands are stored in a registry for runtime lookup:</p>
+<ul>
+<li><strong>Name-based indexing</strong> for O(1) command lookup</li>
+<li><strong>Type-based grouping</strong> for category queries</li>
+<li><strong>Metadata caching</strong> for help system integration</li>
+</ul>
+<h2 id="pipeline-configuration">Pipeline Configuration</h2>
+<h3 id="customization-points">Customization Points</h3>
+<p>The pipeline can be customized at several points:</p>
+<ol>
+<li><strong>Assembly Filtering</strong>: Custom assembly discovery logic</li>
+<li><strong>Module Filtering</strong>: Additional module validation rules</li>
+<li><strong>Method Filtering</strong>: Custom method selection criteria</li>
+<li><strong>Type Parsers</strong>: Custom parameter type handling</li>
+<li><strong>Result Handlers</strong>: Custom return type processing</li>
+</ol>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<ul>
+<li><strong>Lazy Loading</strong>: Commands compiled on first use</li>
+<li><strong>Caching</strong>: Compiled delegates cached indefinitely</li>
+<li><strong>Memory Usage</strong>: Scales with number of command methods</li>
+<li><strong>Startup Time</strong>: Initial compilation may impact cold start</li>
+</ul>
+<h2 id="error-handling">Error Handling</h2>
+<h3 id="common-errors">Common Errors</h3>
+<ol>
+<li><p><strong>Compilation Failures</strong>:</p>
+<pre><code class="lang-csharp">throw new InvalidOperationException(
+    $&quot;Failed to compile method invoker for {method.Name}: {ex.Message}&quot;, ex
+);
+</code></pre>
+</li>
+<li><p><strong>Type Parser Missing</strong>:</p>
+<ul>
+<li>Fallback to <code>DefaultValueParser&lt;T&gt;</code></li>
+<li>Runtime error if conversion fails</li>
+</ul>
+</li>
+<li><p><strong>Duplicate Command Names</strong>:</p>
+<ul>
+<li>Last registered command wins</li>
+<li>Warning logged for duplicates</li>
+</ul>
+</li>
+</ol>
+<h3 id="debugging-support">Debugging Support</h3>
+<ul>
+<li><strong>Verbose Logging</strong>: Detailed pipeline execution logs</li>
+<li><strong>Error Context</strong>: Full method and type information</li>
+<li><strong>Reflection Fallback</strong>: Option to disable compilation for debugging</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="module-design">Module Design</h3>
+<pre><code class="lang-csharp">[CommandModule]
+public class MyCommands : BaseController
+{
+    // Group related commands in single modules
+    // Use descriptive command names
+    // Provide comprehensive help text
+    
+    [Command(&quot;example&quot;, CommandType.Text, 
+             Description = &quot;Example command&quot;,
+             Syntax = &quot;example &lt;parameter&gt;&quot;)]
+    public async Task&lt;ICommandResult&gt; ExampleAsync(string parameter)
+    {
+        // Implementation
+    }
+}
+</code></pre>
+<h3 id="performance-optimization">Performance Optimization</h3>
+<ol>
+<li><strong>Minimize Parameter Count</strong>: Fewer parameters = faster compilation</li>
+<li><strong>Use Primitive Types</strong>: Built-in parsers are more efficient</li>
+<li><strong>Avoid Complex Inheritance</strong>: Simple hierarchies compile faster</li>
+<li><strong>Cache Results</strong>: Store expensive computation results</li>
+</ol>
+<h3 id="testing-strategy">Testing Strategy</h3>
+<pre><code class="lang-csharp">[Test]
+public void Command_ShouldBeDiscovered()
+{
+    // Test command discovery
+    var modules = ReflectionUtilities.GetCommandModules(assemblies);
+    Assert.That(modules, Contains.Item(typeof(MyCommands)));
+}
+
+[Test]
+public void CommandMethod_ShouldCompile()
+{
+    // Test compilation
+    var method = typeof(MyCommands).GetMethod(&quot;ExampleAsync&quot;);
+    var compiled = ReflectionUtilities.CompileMethodInvoker&lt;MyCommands, Task&gt;(method);
+    Assert.That(compiled, Is.Not.Null);
+}
+</code></pre>
+<h2 id="monitoring-and-diagnostics">Monitoring and Diagnostics</h2>
+<h3 id="pipeline-metrics">Pipeline Metrics</h3>
+<ul>
+<li><strong>Discovery Time</strong>: Time to discover all commands</li>
+<li><strong>Compilation Time</strong>: Time to compile all delegates</li>
+<li><strong>Memory Usage</strong>: Memory consumed by compiled delegates</li>
+<li><strong>Error Rate</strong>: Percentage of failed compilations</li>
+</ul>
+<h3 id="diagnostic-tools">Diagnostic Tools</h3>
+<pre><code class="lang-csharp">public static class CommandDiagnostics
+{
+    public static int TotalCommands { get; }
+    public static int CompiledCommands { get; }
+    public static TimeSpan CompilationTime { get; }
+    public static IReadOnlyList&lt;string&gt; Errors { get; }
+}
+</code></pre>
+<h2 id="future-enhancements">Future Enhancements</h2>
+<h3 id="extensibility-points">Extensibility Points</h3>
+<ul>
+<li><strong>Custom Attributes</strong>: Additional command metadata</li>
+<li><strong>Middleware Pipeline</strong>: Command execution interceptors</li>
+<li><strong>Result Transformers</strong>: Custom result processing</li>
+<li><strong>Security Filters</strong>: Permission-based command filtering</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>The command creation pipeline in Jiro.Commands provides a robust, high-performance foundation for building command-driven applications. By leveraging reflection, expression trees, and compiled delegates, it achieves the flexibility of dynamic discovery with the performance of static compilation.</p>
+<p>The pipeline's modular design allows for extensive customization while maintaining sensible defaults for common scenarios. Understanding this pipeline is crucial for effectively using and extending the Jiro.Commands framework.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <div class="footer-custom"><div class="footer-inner d-flex justify-content-between align-items-center"><div class="footer-text">Made with <strong>💖</strong> By HueByte</div><div class="footer-links"><a href="https://github.com/HueByte/Jiro.Libs" class="footer-link" target="_blank"><i class="fab fa-github"></i>GitHub</a><a href="#" class="footer-link scroll-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i>Top</a></div></div></div><script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,521 @@
+{
+  "source_base_path": "/home/runner/work/Jiro.Libs/Jiro.Libs/dev",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Attributes.CommandAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Attributes.CommandAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Attributes.CommandModuleAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Attributes.CommandModuleAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Attributes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Base.BaseController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Base.BaseController.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Base.CommandRegistrator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Base.CommandRegistrator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Base.IPlugin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Base.IPlugin.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Base.PluginManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Base.PluginManager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Base.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Base.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.CommandType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.CommandType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Exceptions.CommandException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Exceptions.CommandException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Exceptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.ICommandBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.ICommandBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.ICommandResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.ICommandResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Models.CommandInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Models.CommandInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Models.CommandModuleInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Models.CommandModuleInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Models.CommandResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Models.CommandResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Models.CommandsContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Models.CommandsContext.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Models.ParameterInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Models.ParameterInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Models.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Results.GraphResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Results.GraphResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Results.ImageResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Results.ImageResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Results.JsonResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Results.JsonResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Results.TextResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Results.TextResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.Results.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.Results.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.TypeParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.TypeParser.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.TypeParsers.DefaultValueParser-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.TypeParsers.DefaultValueParser-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.TypeParsers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.TypeParsers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_temp/api/Jiro.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Jiro.Commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "_temp/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "assets/Jiro-Icon.png",
+      "output": {
+        "resource": {
+          "relative_path": "assets/Jiro-Icon.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "assets/JiroBanner.png",
+      "output": {
+        "resource": {
+          "relative_path": "assets/JiroBanner.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/code-names.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/code-names.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/changelog/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/changelog/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/v2.0.0.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/v2.0.0.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/v3.0.0.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/v3.0.0.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/v3.0.1.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/v3.0.1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/v3.0.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/v3.0.2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/v3.0.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/v3.0.3.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/changelog/v3.0.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/changelog/v3.0.4.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/command-creation-pipeline.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/command-creation-pipeline.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/compiled-lambdas.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/compiled-lambdas.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/docs-enhanced-release-script.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/docs-enhanced-release-script.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/examples.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/examples.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

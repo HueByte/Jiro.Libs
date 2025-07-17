@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Jiro.Libs v3.0.0 &quot;Shinpo&quot; | Jiro.Libs Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Jiro.Libs v3.0.0 &quot;Shinpo&quot; | Jiro.Libs Documentation ">
+      
+      
+      <link rel="icon" href="../../assets/Jiro-Icon.png">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../assets/Jiro-Icon.png" alt="Jiro.Libs">
+            Jiro.Libs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="jirolibs-v300-shinpo">Jiro.Libs v3.0.0 &quot;Shinpo&quot;</h1>
+
+<p><strong>Release Date:</strong> 2025/07/12<br>
+<strong>Release Type:</strong> Major Release<br>
+<strong>Branch:</strong> main<br>
+<strong>Code Name:</strong> Shinpo (進歩) - &quot;Progress &amp; Advancement&quot;</p>
+<h2 id="-overview">🎉 Overview</h2>
+<p>This is a <strong>major release</strong> of Jiro.Libs that significantly improves the developer experience with enhanced tooling, comprehensive documentation, improved code quality, and modernized dependencies. This release establishes professional development standards and introduces robust CI/CD automation.</p>
+<h2 id="-features-added">✨ Features Added</h2>
+<h3 id="development-infrastructure">Development Infrastructure</h3>
+<ul>
+<li><strong>EditorConfig</strong>: Comprehensive code formatting rules for consistent development across all file types</li>
+<li><strong>GitAttributes</strong>: Proper line ending and file type handling for cross-platform development</li>
+<li><strong>GitHub Actions Suite</strong>: Complete CI/CD pipeline with specialized workflows
+<ul>
+<li>Core .NET CI (<code>jiro-kernel-ci.yml</code>)</li>
+<li>Release management (<code>create-release.yml</code>)</li>
+<li>Security scanning (<code>jiro-kernel-security.yml</code>)</li>
+<li>Docker containerization (<code>docker-build.yml</code>)</li>
+<li>Documentation deployment (<code>deploy-docs.yml</code>)</li>
+<li>Markdown linting (<code>markdown-lint.yml</code>)</li>
+<li>Performance testing (<code>jiro-kernel-performance.yml</code>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="code-quality--documentation">Code Quality &amp; Documentation</h3>
+<ul>
+<li><strong>XML Documentation</strong>: Comprehensive API documentation for all public interfaces</li>
+<li><strong>Enhanced Type Safety</strong>: Improved parameter parsing with better error handling</li>
+<li><strong>Quote-Aware Tokenization</strong>: Advanced command parsing supporting quoted arguments</li>
+<li><strong>Improved Exception Handling</strong>: Better error messages and type conversion failures</li>
+</ul>
+<h3 id="framework-enhancements">Framework Enhancements</h3>
+<ul>
+<li><strong>JsonResult</strong>: New result type for JSON command outputs</li>
+<li><strong>Enhanced Parsing</strong>: Robust type parsing with culture-aware conversion</li>
+<li><strong>Package Metadata</strong>: Added README.md to NuGet package for better discoverability</li>
+</ul>
+<h2 id="-changes">🔄 Changes</h2>
+<h3 id="dependencies-update">Dependencies Update</h3>
+<ul>
+<li><strong>Microsoft.Extensions.Configuration</strong>: Added v9.0.0 for enhanced configuration support</li>
+<li><strong>Microsoft.Extensions.DependencyInjection</strong>: Updated to v9.0.0</li>
+<li><strong>Microsoft.Extensions.Logging</strong>: Updated to v9.0.0</li>
+<li><strong>Removed Legacy Dependencies</strong>: Cleaned up outdated ASP.NET Core references</li>
+<li><strong>Framework Reference</strong>: Switched to proper <code>Microsoft.AspNetCore.App</code> framework reference</li>
+</ul>
+<h3 id="code-structure">Code Structure</h3>
+<ul>
+<li><strong>Consistent Formatting</strong>: Applied EditorConfig rules across all source files</li>
+<li><strong>Documentation Standards</strong>: Added comprehensive XML documentation to all models and results</li>
+<li><strong>Namespace Organization</strong>: Improved code organization and consistency</li>
+</ul>
+<h3 id="cicd-pipeline">CI/CD Pipeline</h3>
+<ul>
+<li><strong>Workflow Separation</strong>: Individual workflows for specific concerns (build, security, docs)</li>
+<li><strong>Automated Testing</strong>: Enhanced testing pipeline with coverage reporting</li>
+<li><strong>Security Integration</strong>: Weekly security scans and vulnerability checks</li>
+<li><strong>Multi-platform Support</strong>: Build and test across Linux, Windows, and macOS</li>
+</ul>
+<h2 id="-technical-details">🛠️ Technical Details</h2>
+<h3 id="enhanced-command-processing">Enhanced Command Processing</h3>
+<ul>
+<li><strong>Quote-Aware Parsing</strong>: Commands now properly handle quoted arguments with spaces</li>
+<li><strong>Improved Type Conversion</strong>: Better error handling for parameter parsing failures</li>
+<li><strong>Culture-Aware Parsing</strong>: Consistent parsing behavior across different locales</li>
+</ul>
+<h3 id="documentation-infrastructure">Documentation Infrastructure</h3>
+<ul>
+<li><strong>DocFX Integration</strong>: Automated API documentation generation</li>
+<li><strong>GitHub Pages</strong>: Automatic documentation deployment</li>
+<li><strong>Markdown Standards</strong>: Enforced markdown linting for consistent documentation</li>
+</ul>
+<h3 id="security--quality">Security &amp; Quality</h3>
+<ul>
+<li><strong>CodeQL Analysis</strong>: Automated security vulnerability scanning</li>
+<li><strong>Dependency Scanning</strong>: Regular security audits for third-party packages</li>
+<li><strong>Container Security</strong>: Trivy scanning for Docker images</li>
+</ul>
+<h2 id="-components">📦 Components</h2>
+<h3 id="libraries">Libraries</h3>
+<ul>
+<li><strong>Jiro.Commands</strong> (<code>v3.0.0</code>): Enhanced command and plugin framework with improved documentation</li>
+</ul>
+<h3 id="development-tools">Development Tools</h3>
+<ul>
+<li><strong>GitHub Actions</strong>: 8 specialized workflows for different aspects of CI/CD</li>
+<li><strong>EditorConfig</strong>: Comprehensive formatting rules for 15+ file types</li>
+<li><strong>Scripts</strong>: Enhanced build and documentation generation scripts</li>
+</ul>
+<h3 id="examples">Examples</h3>
+<ul>
+<li><strong>ExampleApp</strong>: Updated with latest dependencies and improved structure</li>
+<li><strong>ExamplePlugin</strong>: Reference implementation with best practices</li>
+</ul>
+<h2 id="-installation">🔧 Installation</h2>
+<h3 id="nuget-package">NuGet Package</h3>
+<pre><code class="lang-bash">dotnet add package Jiro.Commands --version 3.0.0
+</code></pre>
+<h3 id="package-features">Package Features</h3>
+<ul>
+<li>Includes README.md for better package documentation</li>
+<li>Comprehensive XML documentation for IntelliSense support</li>
+<li>Modern .NET 9.0 framework targeting</li>
+</ul>
+<h2 id="-release-metrics">📊 Release Metrics</h2>
+<ul>
+<li><strong>XML Documentation Coverage</strong>: 100% of public APIs documented</li>
+<li><strong>CI/CD Workflows</strong>: 8 specialized GitHub Actions workflows</li>
+<li><strong>Code Quality Rules</strong>: 200+ EditorConfig formatting rules</li>
+<li><strong>Dependencies</strong>: Modernized to .NET 9.0 ecosystem</li>
+<li><strong>File Types Supported</strong>: 15+ file types with consistent formatting</li>
+<li><strong>Security Scans</strong>: Weekly automated vulnerability assessments</li>
+</ul>
+<h2 id="-migration-guide">🚀 Migration Guide</h2>
+<h3 id="from-v200-to-v300">From v2.0.0 to v3.0.0</h3>
+<h4 id="dependency-updates">Dependency Updates</h4>
+<ol>
+<li>Update to .NET 9.0 if not already done</li>
+<li>Remove any manual ASP.NET Core package references (now uses framework reference)</li>
+<li>Update project files to use new dependency versions</li>
+</ol>
+<h4 id="code-changes">Code Changes</h4>
+<ul>
+<li><strong>No Breaking Changes</strong>: All existing APIs remain compatible</li>
+<li><strong>Enhanced Documentation</strong>: IntelliSense now shows comprehensive documentation</li>
+<li><strong>Improved Error Messages</strong>: Type parsing errors now include more context</li>
+</ul>
+<h4 id="development-environment">Development Environment</h4>
+<ol>
+<li>Apply EditorConfig settings for consistent formatting</li>
+<li>Configure Git attributes for proper line endings</li>
+<li>Review GitHub Actions workflows if using this repository</li>
+</ol>
+<h2 id="-whats-next">🔮 What's Next</h2>
+<h3 id="upcoming-features-v310">Upcoming Features (v3.1.0)</h3>
+<ul>
+<li>Performance optimizations based on benchmark results</li>
+<li>Additional result types for specialized outputs</li>
+<li>Enhanced plugin hot-reloading capabilities</li>
+<li>Advanced command composition features</li>
+</ul>
+<h3 id="long-term-roadmap">Long-term Roadmap</h3>
+<ul>
+<li>Visual Studio Code extension for plugin development</li>
+<li>Advanced debugging tools for command execution</li>
+<li>Plugin marketplace integration</li>
+<li>Real-time command collaboration features</li>
+</ul>
+<h2 id="-breaking-changes">📝 Breaking Changes</h2>
+<p><strong>None</strong> - This release maintains full backward compatibility with v2.0.0 while adding significant new functionality and improvements.</p>
+<h2 id="-security-enhancements">🔒 Security Enhancements</h2>
+<ul>
+<li><strong>Automated Security Scanning</strong>: Weekly CodeQL analysis and dependency audits</li>
+<li><strong>Container Security</strong>: Trivy scanning for Docker images</li>
+<li><strong>Dependency Management</strong>: Automated vulnerability detection and reporting</li>
+<li><strong>Secure Development</strong>: EditorConfig and GitAttributes for consistent, secure coding practices</li>
+</ul>
+<h2 id="-acknowledgments">🙏 Acknowledgments</h2>
+<p>This release represents a major step forward in establishing Jiro.Libs as a professional, enterprise-ready framework with comprehensive tooling, documentation, and quality assurance processes.</p>
+<hr>
+<p><strong>Full Changelog</strong>: <a href="https://github.com/HueByte/Jiro.Libs/compare/v2.0.0...v3.0.0">v2.0.0...v3.0.0</a><br>
+<strong>Documentation</strong>: <a href="https://huebyte.github.io/Jiro.Libs/">huebyte.github.io/Jiro.Libs</a><br>
+<strong>Issues</strong>: <a href="https://github.com/HueByte/Jiro.Libs/issues">GitHub Issues</a><br>
+<strong>Security Advisories</strong>: <a href="https://github.com/HueByte/Jiro.Libs/security/advisories">Security Advisories</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/HueByte/Jiro.Libs/blob/main/dev/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <div class="footer-custom"><div class="footer-inner d-flex justify-content-between align-items-center"><div class="footer-text">Made with <strong>💖</strong> By HueByte</div><div class="footer-links"><a href="https://github.com/HueByte/Jiro.Libs" class="footer-link" target="_blank"><i class="fab fa-github"></i>GitHub</a><a href="#" class="footer-link scroll-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i>Top</a></div></div></div><script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
