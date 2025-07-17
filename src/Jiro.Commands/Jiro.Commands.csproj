@@ -26,7 +26,7 @@ Features:
     <RepositoryUrl>https://github.com/HueByte/Jiro.Libs</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>main</RepositoryBranch>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Jiro-Icon.png</PackageIcon>
     <PackageTags>commands;plugins;framework;dotnet;csharp;extensibility;cli;command-line</PackageTags>
@@ -43,7 +43,7 @@ Features:
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.nuget.md" Pack="true" PackagePath="\" />
     <None Include="..\..\dev\assets\Jiro-Icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
