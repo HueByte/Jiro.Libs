@@ -49,7 +49,7 @@
     <file src="bin\Release\net9.0\Jiro.Commands.xml" target="lib\net9.0\Jiro.Commands.xml" />
 
     <!-- Documentation -->
-    <file src="..\..\README.md" target="README.md" />
+    <file src="..\..\README.nuget.md" target="README.md" />
     <file src="..\..\LICENSE" target="LICENSE" />
 
     <!-- Package icon (if exists) -->
