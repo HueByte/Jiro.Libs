@@ -1,4 +1,4 @@
-using Jiro.Core.Base.Results;
+using Jiro.Commands.Results;
 
 namespace Jiro.Commands.Tests.Unit.Results;
 

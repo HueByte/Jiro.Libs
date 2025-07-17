@@ -63,14 +63,14 @@ jobs:
           echo "Looking for .csproj files:"
           find . -name "*.csproj" -type f | head -10
 
-          if [ -f "src/Jiro.Kernel/Jiro.App/Jiro.App.csproj" ]; then
-            echo "Found Jiro.App.csproj"
-            VERSION=$(grep -oP '<Version>\K[^<]+' src/Jiro.Kernel/Jiro.App/Jiro.App.csproj || echo "not found")
+          if [ -f "src/Jiro.Commands/Jiro.Commands.csproj" ]; then
+            echo "Found Jiro.Commands.csproj"
+            VERSION=$(grep -oP '<Version>\K[^<]+' src/Jiro.Commands/Jiro.Commands.csproj || echo "not found")
             echo "Version: $VERSION"
           else
-            echo "Jiro.App.csproj not found at expected path"
-            echo "Searching for Jiro.App.csproj anywhere:"
-            find . -name "Jiro.App.csproj" -type f || echo "No Jiro.App.csproj found"
+            echo "Jiro.Commands.csproj not found at expected path"
+            echo "Searching for Jiro.Commands.csproj anywhere:"
+            find . -name "Jiro.Commands.csproj" -type f || echo "No Jiro.Commands.csproj found"
           fi
 
       - name: List existing tags

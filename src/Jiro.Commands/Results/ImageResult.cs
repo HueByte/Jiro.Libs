@@ -1,6 +1,6 @@
 using Jiro.Commands;
 
-namespace Jiro.Core.Base.Results
+namespace Jiro.Commands.Results
 {
 	/// <summary>
 	/// Represents an image result for a command.

@@ -70,9 +70,7 @@ jobs:
 
       - name: Build .NET projects for XML documentation generation
         run: |
-          dotnet build src/Jiro.Kernel/Jiro.Core/Jiro.Core.csproj --configuration Release --no-restore
-          dotnet build src/Jiro.Kernel/Jiro.App/Jiro.App.csproj --configuration Release --no-restore
-          dotnet build src/Jiro.Kernel/Jiro.Infrastructure/Jiro.Infrastructure.csproj --configuration Release --no-restore
+          dotnet build src/Jiro.Commands/Jiro.Commands.csproj --configuration Release --no-restore
         continue-on-error: true # Continue even if some projects fail to build
 
       - name: Build documentation with DocFX

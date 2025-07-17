@@ -46,11 +46,10 @@ Get started with Jiro in minutes:
 
 ## 🏗️ Architecture Overview
 
-Jiro follows a layered architecture with clear separation of concerns:
+Jiro.Commands provides a layered architecture with clear separation of concerns:
 
-- **Jiro.Core** - Core business logic and domain models
-- **Jiro.Infrastructure** - Data access and external services
-- **Jiro.App** - Application configuration and startup
+- **Jiro.Commands** - Core command processing library with attributes, controllers, and type parsers
+- **Jiro.Commands.Tests** - Comprehensive test suite ensuring reliability
 
 ## 🤝 Contributing
 
